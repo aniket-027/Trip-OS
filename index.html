@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
-    <script>
+<script>
         if (prompt("Please enter your private PIN:") !== "20102005") {
             document.body.innerHTML = "<h1 style='text-align:center; font-family:sans-serif; margin-top:50px;'>Access Denied.</h1>";
             window.stop();
@@ -332,11 +332,11 @@
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
                     <div class="ios-card p-4 sm:p-5">
                         <div class="flex items-center justify-between text-ios-gray text-xs font-bold uppercase">
-                            <span>Total Trip Spent</span>
-                            <i class="ph-fill ph-shopping-bag text-ios-blue text-lg"></i>
+                            <span>Total Spent</span>
+                            <i class="ph-fill ph-trend-up text-ios-blue text-lg"></i>
                         </div>
                         <div id="kpi-total-spent" class="text-2xl sm:text-3xl font-extrabold mt-2 text-ios-blue">₹0</div>
-                        <p id="kpi-spent-sub" class="text-[11px] text-ios-gray mt-1">Across 0 expenses</p>
+                        <p id="kpi-spent-sub" class="text-[11px] text-ios-gray mt-1">Across 0 logged bills</p>
                     </div>
 
                     <div class="ios-card p-4 sm:p-5">
@@ -350,11 +350,11 @@
 
                     <div class="ios-card p-4 sm:p-5">
                         <div class="flex items-center justify-between text-ios-gray text-xs font-bold uppercase">
-                            <span>Cash With Manager</span>
+                            <span>Available Pool Cash</span>
                             <i class="ph-fill ph-wallet text-amber-500 text-lg"></i>
                         </div>
                         <div id="kpi-cash-on-hand" class="text-2xl sm:text-3xl font-extrabold mt-2 text-amber-600 dark:text-amber-400">₹0</div>
-                        <p id="kpi-cash-sub" class="text-[11px] text-ios-gray mt-1">Pool minus pool spends & advances</p>
+                        <p id="kpi-cash-sub" class="text-[11px] text-ios-gray mt-1">Manager + unspent member advances</p>
                     </div>
 
                     <div class="ios-card p-4 sm:p-5">
@@ -407,7 +407,8 @@
                                         <th class="py-2.5 px-2 text-center">Pax</th>
                                         <th class="py-2.5 px-2 text-right">Net Credit</th>
                                         <th class="py-2.5 px-2 text-right">Consumed</th>
-                                        <th class="py-2.5 pl-2 text-right">Net Balance</th>
+                                        <th class="py-2.5 px-2 text-right">Net Balance</th>
+                                        <th class="py-2.5 pl-2 text-right">Particulars</th>
                                     </tr>
                                 </thead>
                                 <tbody id="home-units-tbody" class="divide-y divide-ios-border dark:divide-ios-darkBorder"></tbody>
@@ -485,18 +486,22 @@
                         <div>
                             <span class="text-[11px] font-bold uppercase text-ios-gray">1. Gross Pool Deposits (+)</span>
                             <p id="pool-stat-deposits" class="text-lg sm:text-xl font-extrabold text-ios-green mt-0.5">₹0</p>
+                            <p id="pool-stat-deposits-sub" class="text-[10px] text-ios-gray mt-0.5">Total collected into pool</p>
                         </div>
                         <div>
-                            <span class="text-[11px] font-bold uppercase text-ios-gray">2. Pool Advances Sent (-)</span>
-                            <p id="pool-stat-advances" class="text-lg sm:text-xl font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">₹0</p>
-                        </div>
-                        <div>
-                            <span class="text-[11px] font-bold uppercase text-ios-gray">3. Paid by Pool for Bills (-)</span>
+                            <span class="text-[11px] font-bold uppercase text-ios-gray">2. Bills Paid (Pool + Adv) (-)</span>
                             <p id="pool-stat-bills" class="text-lg sm:text-xl font-extrabold text-ios-blue mt-0.5">₹0</p>
+                            <p id="pool-stat-bills-sub" class="text-[10px] text-ios-gray mt-0.5">Direct: ₹0 | Via Adv: ₹0</p>
                         </div>
                         <div>
-                            <span class="text-[11px] font-bold uppercase text-ios-gray">4. Net Cash With Manager (=)</span>
+                            <span class="text-[11px] font-bold uppercase text-ios-gray">3. Unspent Adv w/ Members</span>
+                            <p id="pool-stat-advances" class="text-lg sm:text-xl font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">₹0</p>
+                            <p id="pool-stat-advances-sub" class="text-[10px] text-ios-gray mt-0.5">Out of ₹0 advances sent</p>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold uppercase text-ios-gray">4. Total Available Pool (=)</span>
                             <p id="pool-stat-net-cash" class="text-lg sm:text-xl font-extrabold mt-0.5">₹0</p>
+                            <p id="pool-stat-net-cash-sub" class="text-[10px] text-ios-gray mt-0.5">₹0 Manager + ₹0 Members</p>
                         </div>
                     </div>
                 </div>
@@ -614,13 +619,38 @@
                                     <th class="py-3 px-2 text-right">Advances/Peer (±)</th>
                                     <th class="py-3 px-2 text-right font-bold">Total Credit</th>
                                     <th class="py-3 px-2 text-right font-bold">Total Consumed</th>
-                                    <th class="py-3 pl-2 text-right font-bold">Net Settlement</th>
+                                    <th class="py-3 px-2 text-right font-bold">Net Settlement</th>
+                                    <th class="py-3 pl-2 text-right font-bold">Audit Trail</th>
                                 </tr>
                             </thead>
                             <tbody id="settlement-table-tbody" class="divide-y divide-ios-border dark:divide-ios-darkBorder"></tbody>
                             <tfoot id="settlement-table-tfoot" class="border-t-2 border-zinc-300 dark:border-zinc-700 font-extrabold bg-zinc-50 dark:bg-zinc-800/50"></tfoot>
                         </table>
                     </div>
+                </div>
+
+                <!-- Itemized Family/Member Passbook (Transaction Particulars) -->
+                <div class="ios-card p-5 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-ios-border dark:border-ios-darkBorder pb-3.5">
+                        <div>
+                            <div class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-ios-blue/10 text-ios-blue mb-1">
+                                <i class="ph-bold ph-list-magnifying-glass"></i> Line-by-Line Accounting Particulars
+                            </div>
+                            <h3 class="font-extrabold text-base sm:text-lg">Account-Wise Itemized Passbook & Expense Particulars</h3>
+                            <p class="text-xs text-ios-gray">Select any family/member below to inspect or share every single bill share, deposit, out-of-pocket payment, and advance</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 shrink-0">
+                            <button onclick="copyAllPassbooksWhatsApp()" class="px-3.5 py-2 rounded-xl bg-emerald-600/15 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-600/25 font-bold text-xs flex items-center gap-1.5 transition">
+                                <i class="ph-fill ph-whatsapp-logo text-base"></i> Copy All Passbooks
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Family Selector Pills -->
+                    <div id="passbook-family-pills" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+
+                    <!-- Selected Family Itemized Passbook Content -->
+                    <div id="passbook-detail-container" class="space-y-4"></div>
                 </div>
             </section>
 
@@ -1214,6 +1244,27 @@
         </div>
     </div>
 
+    <!-- 7B. INDIVIDUAL FAMILY / MEMBER ITEMIZED PASSBOOK MODAL -->
+    <div id="unit-passbook-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="ios-card w-full max-w-3xl max-h-[92vh] overflow-y-auto p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-ios-border dark:border-ios-darkBorder pb-3">
+                <div>
+                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-ios-blue/10 text-ios-blue">Official Statement of Particulars</span>
+                    <h3 id="passbook-modal-title" class="text-lg font-extrabold mt-0.5">Family Itemized Statement</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="passbook-modal-whatsapp-btn" type="button" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+                        <i class="ph-fill ph-whatsapp-logo text-base"></i> Copy Statement
+                    </button>
+                    <button onclick="closeUnitPassbookModal()" class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center">
+                        <i class="ph-bold ph-x"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="passbook-modal-body" class="space-y-4"></div>
+        </div>
+    </div>
+
     <!-- 8. CUSTOM CONFIRMATION MODAL (REPLACES NATIVE CONFIRM/ALERT) -->
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="ios-card w-full max-w-sm p-5 text-center space-y-4">
@@ -1247,6 +1298,7 @@
         let showFullAadhaar = false;
         let categoryChartInstance = null;
         let newTripDraftParticipants = [];
+        let selectedPassbookFamilyId = null;
 
         // --- UTF-8 SAFE BASE64 HELPERS FOR SYNC ---
         function utf8ToBase64(str) {
@@ -1498,8 +1550,7 @@
             };
         }
 
-        // --- STATE LOAD & SAVE ---
-        // --- STATE LOAD & SAVE (FIREBASE CLOUD SYNC) ---
+       // --- STATE LOAD & SAVE (FIREBASE CLOUD SYNC) ---
         async function loadState() {
             try {
                 // 1. Fetch from Firebase Cloud Notebook
@@ -1718,33 +1769,48 @@
                 }
             });
 
-            // 2. Process Expenses (OOP Credits + Consumed Shares)
+            // 2. Process Expenses (Out-of-Pocket Credits, Category Totals, and Unit Consumption)
             const categories = { Travel: 0, Stay: 0, Food: 0, Activities: 0, Shopping: 0, Misc: 0 };
             (trip.expenses || []).forEach(exp => {
                 const amt = Math.round(Number(exp.amount) || 0);
-                const cat = categories[exp.category] !== undefined ? exp.category : 'Misc';
-                categories[cat] += amt;
+                const cat = exp.category || 'Misc';
+                categories[cat] = (categories[cat] || 0) + amt;
 
                 if (exp.paidBy !== 'POOL' && unitMap[exp.paidBy]) {
                     unitMap[exp.paidBy].oopPaid += amt;
                 }
 
-                Object.entries(exp.familyShares || {}).forEach(([famId, share]) => {
+                Object.entries(exp.familyShares || {}).forEach(([famId, shareAmt]) => {
                     if (unitMap[famId]) {
-                        unitMap[famId].consumed += Math.round(Number(share) || 0);
+                        unitMap[famId].consumed += Math.round(Number(shareAmt) || 0);
                     }
                 });
             });
 
-            // 3. Compute Net Credit and Net Settlement Balance per Unit
+            // 3. Compute Net Credit, Advance Utilization, and Net Settlement Balance per Unit
             const units = Object.values(unitMap);
+            let totalAdvanceUsed = 0;
+            let totalUnspentAdvances = 0;
+            let totalPureOop = 0;
+
             units.forEach(u => {
+                // How much of the pool advance given to this member was spent on trip bills vs still held as cash
+                u.advanceUsed = Math.min(u.advancesReceived, u.oopPaid);
+                u.unspentAdvance = Math.max(0, u.advancesReceived - u.oopPaid);
+                u.pureOopPaid = Math.max(0, u.oopPaid - u.advancesReceived);
+
+                totalAdvanceUsed += u.advanceUsed;
+                totalUnspentAdvances += u.unspentAdvance;
+                totalPureOop += u.pureOopPaid;
+
                 u.netCredit = u.poolDeposits + u.oopPaid + u.peerSent - u.advancesReceived - u.peerReceived;
                 u.netBalance = u.netCredit - u.consumed;
             });
 
             // Physical cash currently in Money Manager's Pool Vault
             const netPoolCashHeld = grossPoolDeposits - poolAdvancesSent - spentFromPool;
+            // Total Spendable Pool Liquidity = Cash with Manager + Unspent Advance Cash still with Members
+            const totalAvailablePoolCash = netPoolCashHeld + totalUnspentAdvances;
 
             return {
                 totalSpent,
@@ -1752,7 +1818,11 @@
                 spentOutOfPocket,
                 grossPoolDeposits,
                 poolAdvancesSent,
+                totalAdvanceUsed,
+                totalUnspentAdvances,
+                totalPureOop,
                 netPoolCashHeld,
+                totalAvailablePoolCash,
                 categories,
                 units
             };
@@ -1872,8 +1942,10 @@
             document.getElementById('kpi-spent-sub').innerText = `Across ${(trip.expenses || []).length} logged bills`;
             document.getElementById('kpi-pool-collected').innerText = formatINR(fin.grossPoolDeposits);
             document.getElementById('kpi-pool-sub').innerText = `Advances sent: ${formatINR(fin.poolAdvancesSent)}`;
-            document.getElementById('kpi-cash-on-hand').innerText = formatINR(fin.netPoolCashHeld);
-            document.getElementById('kpi-cash-sub').innerText = fin.netPoolCashHeld >= 0 ? 'Physical pool balance available' : 'Pool overdrawn (Manager OOP)';
+            document.getElementById('kpi-cash-on-hand').innerText = formatINR(fin.totalAvailablePoolCash);
+            document.getElementById('kpi-cash-sub').innerText = fin.totalUnspentAdvances > 0
+                ? `${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} w/ Members`
+                : (fin.netPoolCashHeld >= 0 ? `Held by Money Manager` : `Pool overdrawn (Manager OOP)`);
             document.getElementById('kpi-member-count').innerText = trip.members.length;
             const avgPerPax = trip.members.length > 0 ? Math.round(fin.totalSpent / trip.members.length) : 0;
             document.getElementById('kpi-per-person-avg').innerText = `${formatINR(avgPerPax)} avg per person`;
@@ -1961,7 +2033,12 @@
                         <td class="py-3 px-2 text-center font-semibold">${u.memberCount}</td>
                         <td class="py-3 px-2 text-right font-semibold text-emerald-600 dark:text-emerald-400">${formatINR(u.netCredit)}</td>
                         <td class="py-3 px-2 text-right font-semibold">${formatINR(u.consumed)}</td>
-                        <td class="py-3 pl-2 text-right">${balBadge}</td>
+                        <td class="py-3 px-2 text-right">${balBadge}</td>
+                        <td class="py-3 pl-2 text-right">
+                            <button onclick="openUnitPassbookModal('${u.familyId}')" class="px-2.5 py-1 rounded-lg bg-ios-blue/10 hover:bg-ios-blue hover:text-white text-ios-blue font-bold text-[11px] inline-flex items-center gap-1 transition">
+                                <i class="ph-bold ph-file-text"></i> Particulars
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -2346,13 +2423,22 @@
                 managerName = mf ? mf.headName : 'Unassigned';
             }
 
+            const totalPoolAndAdvSpent = fin.spentFromPool + fin.totalAdvanceUsed;
+
             document.getElementById('pool-manager-heading').innerText = `Managed by ${managerName}`;
             document.getElementById('pool-stat-deposits').innerText = formatINR(fin.grossPoolDeposits);
-            document.getElementById('pool-stat-advances').innerText = formatINR(fin.poolAdvancesSent);
-            document.getElementById('pool-stat-bills').innerText = formatINR(fin.spentFromPool);
+            document.getElementById('pool-stat-deposits-sub').innerText = `Total collected into pool`;
+
+            document.getElementById('pool-stat-bills').innerText = formatINR(totalPoolAndAdvSpent);
+            document.getElementById('pool-stat-bills-sub').innerText = `Pool: ${formatINR(fin.spentFromPool)} | Via Adv: ${formatINR(fin.totalAdvanceUsed)}`;
+
+            document.getElementById('pool-stat-advances').innerText = formatINR(fin.totalUnspentAdvances);
+            document.getElementById('pool-stat-advances-sub').innerText = `Unspent of ${formatINR(fin.poolAdvancesSent)} sent`;
+
             const netCashEl = document.getElementById('pool-stat-net-cash');
-            netCashEl.innerText = formatINR(fin.netPoolCashHeld);
-            netCashEl.className = `text-lg sm:text-xl font-extrabold mt-0.5 ${fin.netPoolCashHeld >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
+            netCashEl.innerText = formatINR(fin.totalAvailablePoolCash);
+            netCashEl.className = `text-lg sm:text-xl font-extrabold mt-0.5 ${fin.totalAvailablePoolCash >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
+            document.getElementById('pool-stat-net-cash-sub').innerText = `${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} w/ Members`;
 
             // Per-Unit Cards
             const gridEl = document.getElementById('pool-family-cards-grid');
@@ -2374,14 +2460,22 @@
                             <span class="font-bold text-ios-green">${formatINR(u.poolDeposits)}</span>
                         </div>
                         <div>
-                            <span class="text-[10px] text-ios-gray block">OOP Bills (+)</span>
+                            <span class="text-[10px] text-ios-gray block">Bills Paid (+)</span>
                             <span class="font-bold text-purple-600 dark:text-purple-400">${formatINR(u.oopPaid)}</span>
                         </div>
                         <div>
-                            <span class="text-[10px] text-ios-gray block">Advances (-)</span>
+                            <span class="text-[10px] text-ios-gray block">Adv Recd (-)</span>
                             <span class="font-bold text-amber-600 dark:text-amber-400">${formatINR(u.advancesReceived)}</span>
                         </div>
                     </div>
+                    ${u.advancesReceived > 0 ? `
+                        <div class="px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] flex items-center justify-between">
+                            <span class="text-amber-700 dark:text-amber-300 font-semibold">Adv Spent: <strong>${formatINR(u.advanceUsed)}</strong> / ${formatINR(u.advancesReceived)}</span>
+                            <span class="font-extrabold ${u.unspentAdvance > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-ios-green'}">
+                                ${u.unspentAdvance > 0 ? `Unspent Cash: ${formatINR(u.unspentAdvance)}` : `All Advance Used ✓`}
+                            </span>
+                        </div>
+                    ` : ''}
                     <div class="flex items-center justify-between pt-1 text-xs">
                         <span class="text-ios-gray font-medium">Total Net Credit:</span>
                         <span class="font-extrabold text-sm">${formatINR(u.netCredit)}</span>
@@ -2824,16 +2918,19 @@
 
             document.getElementById('settlement-proof-banner').innerHTML = `
                 <div>
-                    <span class="text-ios-gray block font-bold uppercase text-[10px]">1. Cash Currently in Pool Vault</span>
-                    <span class="text-base sm:text-lg font-extrabold text-amber-600 dark:text-amber-400">${formatINR(fin.netPoolCashHeld)}</span>
+                    <span class="text-ios-gray block font-bold uppercase text-[10px]">1. Available Pool Cash (Manager + Adv)</span>
+                    <span class="text-base sm:text-lg font-extrabold text-amber-600 dark:text-amber-400">${formatINR(fin.totalAvailablePoolCash)}</span>
+                    <span class="block text-[10px] text-ios-gray mt-0.5">${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} Unspent Adv</span>
                 </div>
                 <div>
                     <span class="text-ios-gray block font-bold uppercase text-[10px]">2. Total Collectables (Underpaid) (+)</span>
                     <span class="text-base sm:text-lg font-extrabold text-ios-red">${formatINR(totalOwedByUnderpaid)}</span>
+                    <span class="block text-[10px] text-ios-gray mt-0.5">Includes unspent advances to return</span>
                 </div>
                 <div>
                     <span class="text-ios-gray block font-bold uppercase text-[10px]">3. Total Refunds Due (Overpaid) (=)</span>
                     <span class="text-base sm:text-lg font-extrabold text-ios-green">${formatINR(totalRefundToOverpaid)} ✅</span>
+                    <span class="block text-[10px] text-ios-gray mt-0.5">100% Zero-Variance Match</span>
                 </div>
             `;
 
@@ -2892,7 +2989,7 @@
                     : `<span class="px-2 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-700 text-ios-gray font-bold">Settled (₹0)</span>`;
 
                 return `
-                    <tr>
+                    <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition">
                         <td class="py-3 pr-2">
                             <div class="font-bold">${u.headName} ${u.isManager ? '👑' : ''}</div>
                             <div class="text-[11px] text-ios-gray">${u.title}</div>
@@ -2903,7 +3000,12 @@
                         <td class="py-3 px-2 text-right text-amber-600 dark:text-amber-400 font-semibold">${netAdvPeer >= 0 ? '+' : ''}${formatINR(netAdvPeer)}</td>
                         <td class="py-3 px-2 text-right font-extrabold">${formatINR(u.netCredit)}</td>
                         <td class="py-3 px-2 text-right font-extrabold text-ios-blue">${formatINR(u.consumed)}</td>
-                        <td class="py-3 pl-2 text-right">${statusPill}</td>
+                        <td class="py-3 px-2 text-right">${statusPill}</td>
+                        <td class="py-3 pl-2 text-right">
+                            <button onclick="openUnitPassbookModal('${u.familyId}')" class="px-2.5 py-1.5 rounded-xl bg-ios-blue/10 hover:bg-ios-blue hover:text-white text-ios-blue font-bold text-xs inline-flex items-center gap-1 transition">
+                                <i class="ph-bold ph-list-Checks"></i> Particulars
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -2919,9 +3021,375 @@
                     <td class="py-3 px-2 text-right">-${formatINR(fin.poolAdvancesSent)}</td>
                     <td class="py-3 px-2 text-right">${formatINR(totalCreditSum)}</td>
                     <td class="py-3 px-2 text-right text-ios-blue">${formatINR(totalConsumedSum)}</td>
-                    <td class="py-3 pl-2 text-right">Pool Cash: ${formatINR(fin.netPoolCashHeld)}</td>
+                    <td class="py-3 px-2 text-right">Pool Cash: ${formatINR(fin.netPoolCashHeld)}</td>
+                    <td class="py-3 pl-2 text-right"></td>
                 </tr>
             `;
+
+            // Render Inline Account-Wise Passbook & Particulars Section
+            renderSettlementPassbookSection(trip, fin);
+        }
+
+        // --- ACCOUNT-WISE ITEMIZED PASSBOOK & PARTICULARS ENGINE ---
+        function buildUnitParticularsData(trip, fin, familyId) {
+            const unit = fin.units.find(u => u.familyId === familyId) || fin.units[0];
+            if (!unit) return null;
+
+            const famMembers = trip.members.filter(m => m.familyId === unit.familyId);
+            const famMemberIds = new Set(famMembers.map(m => m.id));
+
+            // 1. Itemized Expense Particulars (Debits / Consumption)
+            const expenseRows = [];
+            (trip.expenses || []).forEach(exp => {
+                const shareAmt = Math.round(Number(exp.familyShares?.[unit.familyId]) || 0);
+                if (shareAmt <= 0) return;
+
+                const payerFam = trip.families.find(f => f.id === exp.paidBy);
+                const paidByLabel = exp.paidBy === 'POOL'
+                    ? '👑 Central Cash Pool'
+                    : `💳 ${payerFam ? payerFam.headName : 'Member'} (OOP)`;
+
+                let basisLabel = '';
+                let includedNames = [];
+                if (exp.splitMode === 'equal') {
+                    const activeIds = exp.selectedMemberIds || [];
+                    const famIncluded = famMembers.filter(m => activeIds.includes(m.id));
+                    includedNames = famIncluded.map(m => m.name.split(' ')[0]);
+                    basisLabel = `Equal (${famIncluded.length}/${activeIds.length} Pax)`;
+                } else if (exp.splitMode === 'percentage') {
+                    const pct = exp.amount > 0 ? Math.round((shareAmt / exp.amount) * 100) : 0;
+                    basisLabel = `Percentage (~${pct}%)`;
+                } else {
+                    basisLabel = `Exact ₹ Allocation`;
+                }
+
+                expenseRows.push({
+                    id: exp.id,
+                    date: exp.date,
+                    title: exp.title,
+                    category: exp.category,
+                    totalBill: Math.round(Number(exp.amount) || 0),
+                    paidByLabel,
+                    basisLabel,
+                    includedNames,
+                    shareAmt
+                });
+            });
+
+            // 2. Itemized Credit / Payment / Advance Particulars
+            const creditRows = [];
+            (trip.contributions || []).forEach(c => {
+                const amt = Math.round(Number(c.amount) || 0);
+                const cType = c.type || 'DEPOSIT';
+                if (cType === 'DEPOSIT' && c.familyId === unit.familyId) {
+                    creditRows.push({
+                        date: c.date,
+                        typeBadge: '📥 Pool Deposit',
+                        badgeClass: 'bg-ios-green/15 text-ios-green',
+                        particulars: c.note || 'Cash/UPI deposited into Central Pool',
+                        method: c.method,
+                        sign: '+',
+                        amount: amt,
+                        colorClass: 'text-ios-green'
+                    });
+                } else if (cType === 'ADVANCE' && c.familyId === unit.familyId) {
+                    creditRows.push({
+                        date: c.date,
+                        typeBadge: '📤 Pool Advance Received',
+                        badgeClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+                        particulars: c.note || 'Advance received from Central Pool for booking',
+                        method: c.method,
+                        sign: '-',
+                        amount: amt,
+                        colorClass: 'text-amber-600 dark:text-amber-400'
+                    });
+                } else if (cType === 'PEER' && c.familyId === unit.familyId) {
+                    const toFam = trip.families.find(f => f.id === c.toFamilyId);
+                    creditRows.push({
+                        date: c.date,
+                        typeBadge: '🔄 Sent to Member',
+                        badgeClass: 'bg-ios-indigo/15 text-ios-indigo',
+                        particulars: `Transferred to ${toFam ? toFam.headName : 'Member'}${c.note ? ' — ' + c.note : ''}`,
+                        method: c.method,
+                        sign: '+',
+                        amount: amt,
+                        colorClass: 'text-ios-indigo'
+                    });
+                } else if (cType === 'PEER' && c.toFamilyId === unit.familyId) {
+                    const fromFam = trip.families.find(f => f.id === c.familyId);
+                    creditRows.push({
+                        date: c.date,
+                        typeBadge: '🔄 Received from Member',
+                        badgeClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+                        particulars: `Received from ${fromFam ? fromFam.headName : 'Member'}${c.note ? ' — ' + c.note : ''}`,
+                        method: c.method,
+                        sign: '-',
+                        amount: amt,
+                        colorClass: 'text-amber-600 dark:text-amber-400'
+                    });
+                }
+            });
+
+            // Also include Out-of-Pocket Expenses paid directly by this Family/Unit
+            (trip.expenses || []).forEach(exp => {
+                if (exp.paidBy === unit.familyId) {
+                    creditRows.push({
+                        date: exp.date,
+                        typeBadge: '💳 Out-of-Pocket Bill Paid',
+                        badgeClass: 'bg-purple-500/15 text-purple-600 dark:text-purple-400',
+                        particulars: `Paid group bill: "${exp.title}" (${exp.category})`,
+                        method: 'Direct Vendor Payment',
+                        sign: '+',
+                        amount: Math.round(Number(exp.amount) || 0),
+                        colorClass: 'text-purple-600 dark:text-purple-400'
+                    });
+                }
+            });
+
+            creditRows.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+            return {
+                unit,
+                famMembers,
+                expenseRows,
+                creditRows
+            };
+        }
+
+        function generateUnitPassbookHTML(trip, fin, familyId) {
+            const data = buildUnitParticularsData(trip, fin, familyId);
+            if (!data) return `<p class="text-xs text-ios-gray">No unit data available.</p>`;
+            const { unit, famMembers, expenseRows, creditRows } = data;
+            const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
+            const managerName = mf ? mf.headName : 'Money Manager';
+
+            const statusBanner = unit.netBalance > 0
+                ? `<div class="px-3.5 py-2 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs sm:text-sm">🟢 Refund Receivable from ${managerName}: +${formatINR(unit.netBalance)}</div>`
+                : unit.netBalance < 0
+                ? `<div class="px-3.5 py-2 rounded-xl bg-ios-red/15 text-ios-red font-extrabold text-xs sm:text-sm">🔴 Final Payable to ${managerName}: ${formatINR(Math.abs(unit.netBalance))}</div>`
+                : `<div class="px-3.5 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 text-ios-gray font-extrabold text-xs sm:text-sm">⚪ Fully Settled (₹0 Balance)</div>`;
+
+            return `
+                <!-- Top Summary Header for This Family/Unit -->
+                <div class="p-4 rounded-2xl bg-ios-bg dark:bg-zinc-800/80 border border-ios-border dark:border-ios-darkBorder flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h4 class="font-extrabold text-base">${unit.headName}</h4>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">${unit.title} (${unit.memberCount} Pax)</span>
+                            ${unit.isManager ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400">👑 Money Manager</span>' : ''}
+                        </div>
+                        <p class="text-xs text-ios-gray mt-1">Members: ${famMembers.map(m => `${m.name} (${m.age})`).join(', ') || 'None'}</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        ${statusBanner}
+                        <button type="button" onclick="copyUnitPassbookWhatsApp('${unit.familyId}')" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+                            <i class="ph-fill ph-whatsapp-logo text-sm"></i> Copy ${unit.headName.split(' ')[0]}'s Passbook
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3-Box Formula Strip -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/60">
+                        <span class="text-[10px] font-bold uppercase text-ios-gray block">A. Total Net Credit (Paid In)</span>
+                        <span class="text-lg font-extrabold text-ios-green">${formatINR(unit.netCredit)}</span>
+                        <span class="block text-[11px] text-ios-gray mt-0.5">Pool: ${formatINR(unit.poolDeposits)} | OOP: ${formatINR(unit.oopPaid)} | Adv: -${formatINR(unit.advancesReceived)}</span>
+                    </div>
+                    <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/60">
+                        <span class="text-[10px] font-bold uppercase text-ios-gray block">B. Total Consumed (${expenseRows.length} Bills)</span>
+                        <span class="text-lg font-extrabold text-ios-blue">${formatINR(unit.consumed)}</span>
+                        <span class="block text-[11px] text-ios-gray mt-0.5">${unit.memberCount > 0 ? `~${formatINR(Math.round(unit.consumed / unit.memberCount))} per member` : '—'}</span>
+                    </div>
+                    <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/60">
+                        <span class="text-[10px] font-bold uppercase text-ios-gray block">C. Net Balance (A − B)</span>
+                        <span class="text-lg font-extrabold ${unit.netBalance > 0 ? 'text-ios-green' : unit.netBalance < 0 ? 'text-ios-red' : ''}">${unit.netBalance > 0 ? '+' : ''}${formatINR(unit.netBalance)}</span>
+                        <span class="block text-[11px] text-ios-gray mt-0.5">${unit.netBalance > 0 ? 'Overpaid (Receives Refund)' : unit.netBalance < 0 ? 'Underpaid (Pays Manager)' : 'Exact Match'}</span>
+                    </div>
+                </div>
+
+                <!-- Table 1: Particulars of Expenses Charged (Debits) -->
+                <div class="rounded-2xl border border-ios-border dark:border-ios-darkBorder overflow-hidden">
+                    <div class="px-4 py-2.5 bg-zinc-100/80 dark:bg-zinc-800/80 border-b border-ios-border dark:border-ios-darkBorder flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-ios-blue">1. Particulars of Expenses Consumed (Bill-by-Bill Share)</span>
+                        <span class="text-xs font-extrabold">Total: ${formatINR(unit.consumed)}</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="border-b border-ios-border dark:border-ios-darkBorder text-[10px] uppercase text-ios-gray bg-zinc-50/50 dark:bg-zinc-900/40">
+                                    <th class="py-2.5 px-3">Date</th>
+                                    <th class="py-2.5 px-3">Expense Particular & Category</th>
+                                    <th class="py-2.5 px-3 text-right">Total Group Bill</th>
+                                    <th class="py-2.5 px-3">Paid By</th>
+                                    <th class="py-2.5 px-3">Split Calculation Basis</th>
+                                    <th class="py-2.5 px-3 text-right font-bold">This Account's Share</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-ios-border dark:divide-ios-darkBorder">
+                                ${expenseRows.length === 0 ? `
+                                    <tr><td colspan="6" class="py-5 text-center text-ios-gray">No expenses charged to this account yet.</td></tr>
+                                ` : expenseRows.map(r => `
+                                    <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/30">
+                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${r.date}</td>
+                                        <td class="py-2.5 px-3">
+                                            <div class="font-bold">${r.title}</div>
+                                            <div class="text-[10px] text-ios-gray">${r.category}${r.includedNames.length > 0 ? ` • Members: ${r.includedNames.join(', ')}` : ''}</div>
+                                        </td>
+                                        <td class="py-2.5 px-3 text-right font-semibold">${formatINR(r.totalBill)}</td>
+                                        <td class="py-2.5 px-3 text-[11px]">${r.paidByLabel}</td>
+                                        <td class="py-2.5 px-3 text-[11px] font-medium">${r.basisLabel}</td>
+                                        <td class="py-2.5 px-3 text-right font-extrabold text-ios-blue">${formatINR(r.shareAmt)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Table 2: Particulars of Credits, Deposits, OOP & Advances -->
+                <div class="rounded-2xl border border-ios-border dark:border-ios-darkBorder overflow-hidden">
+                    <div class="px-4 py-2.5 bg-zinc-100/80 dark:bg-zinc-800/80 border-b border-ios-border dark:border-ios-darkBorder flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-ios-green">2. Particulars of Deposits, Out-of-Pocket Bills Paid & Advances</span>
+                        <span class="text-xs font-extrabold">Net Credit: ${formatINR(unit.netCredit)}</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="border-b border-ios-border dark:border-ios-darkBorder text-[10px] uppercase text-ios-gray bg-zinc-50/50 dark:bg-zinc-900/40">
+                                    <th class="py-2.5 px-3">Date</th>
+                                    <th class="py-2.5 px-3">Transaction Type</th>
+                                    <th class="py-2.5 px-3">Particulars / Purpose</th>
+                                    <th class="py-2.5 px-3">Mode</th>
+                                    <th class="py-2.5 px-3 text-right font-bold">Credit Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-ios-border dark:divide-ios-darkBorder">
+                                ${creditRows.length === 0 ? `
+                                    <tr><td colspan="5" class="py-5 text-center text-ios-gray">No deposits, out-of-pocket payments, or advances recorded for this account yet.</td></tr>
+                                ` : creditRows.map(c => `
+                                    <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/30">
+                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${c.date}</td>
+                                        <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${c.badgeClass}">${c.typeBadge}</span></td>
+                                        <td class="py-2.5 px-3 font-semibold">${c.particulars}</td>
+                                        <td class="py-2.5 px-3 text-ios-gray">${c.method}</td>
+                                        <td class="py-2.5 px-3 text-right font-extrabold ${c.colorClass}">${c.sign}${formatINR(c.amount)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSettlementPassbookSection(trip = getActiveTrip(), fin = computeTripFinancials(trip)) {
+            if (!fin.units || fin.units.length === 0) return;
+            if (!selectedPassbookFamilyId || !fin.units.some(u => u.familyId === selectedPassbookFamilyId)) {
+                selectedPassbookFamilyId = fin.units[0].familyId;
+            }
+
+            const pillsEl = document.getElementById('passbook-family-pills');
+            if (pillsEl) {
+                pillsEl.innerHTML = fin.units.map(u => {
+                    const isAct = u.familyId === selectedPassbookFamilyId;
+                    return `
+                        <button type="button" onclick="selectPassbookFamily('${u.familyId}')" class="px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-1.5 ${isAct ? 'bg-ios-blue text-white shadow-sm' : 'bg-ios-bg dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200'}">
+                            <span>${u.headName}</span>
+                            <span class="text-[10px] px-1.5 py-0.5 rounded-full ${isAct ? 'bg-white/20 text-white' : 'bg-zinc-200 dark:bg-zinc-700 text-ios-gray'}">${u.memberCount} Pax</span>
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            const container = document.getElementById('passbook-detail-container');
+            if (container) {
+                container.innerHTML = generateUnitPassbookHTML(trip, fin, selectedPassbookFamilyId);
+            }
+        }
+
+        function selectPassbookFamily(familyId) {
+            selectedPassbookFamilyId = familyId;
+            renderSettlementPassbookSection();
+        }
+
+        function openUnitPassbookModal(familyId) {
+            const trip = getActiveTrip();
+            const fin = computeTripFinancials(trip);
+            const unit = fin.units.find(u => u.familyId === familyId);
+            if (!unit) return;
+
+            selectedPassbookFamilyId = familyId;
+            document.getElementById('passbook-modal-title').innerText = `${unit.headName} (${unit.title}) — Itemized Passbook`;
+            document.getElementById('passbook-modal-body').innerHTML = generateUnitPassbookHTML(trip, fin, familyId);
+            const waBtn = document.getElementById('passbook-modal-whatsapp-btn');
+            waBtn.onclick = () => copyUnitPassbookWhatsApp(familyId);
+
+            document.getElementById('unit-passbook-modal').classList.remove('hidden');
+        }
+
+        function closeUnitPassbookModal() {
+            document.getElementById('unit-passbook-modal').classList.add('hidden');
+        }
+
+        function formatUnitPassbookText(trip, fin, familyId) {
+            const data = buildUnitParticularsData(trip, fin, familyId);
+            if (!data) return '';
+            const { unit, famMembers, expenseRows, creditRows } = data;
+            const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
+            const managerName = mf ? mf.headName : 'Money Manager';
+
+            const lines = [
+                `📒 *ITEMIZED ACCOUNT STATEMENT — ${unit.headName.toUpperCase()}*`,
+                `🏖️ Trip: *${trip.name}*`,
+                `👨‍👩‍👧‍👦 Group Unit: *${unit.title}* (${unit.memberCount} Pax: ${famMembers.map(m => m.name.split(' ')[0]).join(', ')})`,
+                `────────────────────`,
+                `*1. PARTICULARS OF EXPENSES CONSUMED (${expenseRows.length} Bills):*`
+            ];
+
+            if (expenseRows.length === 0) {
+                lines.push(`• No expenses charged.`);
+            } else {
+                expenseRows.forEach((r, i) => {
+                    lines.push(`${i + 1}. [${r.date}] *${r.title}* (Total Bill ${formatINR(r.totalBill)}, ${r.basisLabel}) → *Your Share: ${formatINR(r.shareAmt)}*`);
+                });
+            }
+            lines.push(`👉 *Total Consumed (B): ${formatINR(unit.consumed)}*`);
+            lines.push(`────────────────────`);
+            lines.push(`*2. PARTICULARS OF DEPOSITS, OOP & ADVANCES:*`);
+
+            if (creditRows.length === 0) {
+                lines.push(`• No payments or advances logged.`);
+            } else {
+                creditRows.forEach((c, i) => {
+                    lines.push(`${i + 1}. [${c.date}] ${c.typeBadge}: ${c.particulars} (${c.method}) → *${c.sign}${formatINR(c.amount)}*`);
+                });
+            }
+            lines.push(`👉 *Total Net Credit (A): ${formatINR(unit.netCredit)}*`);
+            lines.push(`────────────────────`);
+
+            const finalLine = unit.netBalance > 0
+                ? `🟢 *FINAL SETTLEMENT: Receive Refund of +${formatINR(unit.netBalance)} from ${managerName}*`
+                : unit.netBalance < 0
+                ? `🔴 *FINAL SETTLEMENT: Pay ${formatINR(Math.abs(unit.netBalance))} to ${managerName}*`
+                : `⚪ *FINAL SETTLEMENT: Fully Settled (₹0)*`;
+            lines.push(finalLine);
+
+            return lines.join('\n');
+        }
+
+        function copyUnitPassbookWhatsApp(familyId) {
+            const trip = getActiveTrip();
+            const fin = computeTripFinancials(trip);
+            const text = formatUnitPassbookText(trip, fin, familyId);
+            const unit = fin.units.find(u => u.familyId === familyId);
+            copyTextSafe(text, `Copied ${unit ? unit.headName : 'Account'}'s itemized passbook!`);
+        }
+
+        function copyAllPassbooksWhatsApp() {
+            const trip = getActiveTrip();
+            const fin = computeTripFinancials(trip);
+            const blocks = fin.units.map(u => formatUnitPassbookText(trip, fin, u.familyId));
+            copyTextSafe(blocks.join('\n\n════════════════════\n\n'), 'Copied all families’ itemized passbooks!');
         }
 
         function copyWhatsAppSettlementSummary() {
@@ -2937,8 +3405,7 @@
                 `────────────────────`,
                 `💰 *Total Trip Expense:* ${formatINR(fin.totalSpent)}`,
                 `🏦 *Total Pool Collected:* ${formatINR(fin.grossPoolDeposits)}`,
-                `📤 *Pool Advances Sent:* ${formatINR(fin.poolAdvancesSent)}`,
-                `💵 *Cash Currently With Manager:* ${formatINR(fin.netPoolCashHeld)}`,
+                `💵 *Available Pool Cash:* ${formatINR(fin.totalAvailablePoolCash)} (${formatINR(fin.netPoolCashHeld)} w/ Manager + ${formatINR(fin.totalUnspentAdvances)} Unspent Advance w/ Members)`,
                 `────────────────────`,
                 `*ACCOUNT-WISE STANDING:*`
             ];
@@ -3033,9 +3500,54 @@
             });
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet4Data), '4_Booking_Directory');
 
+            // Sheet 5: Account-Wise Itemized Passbooks (Particulars of Every Transaction)
+            const sheet5Data = [];
+            fin.units.forEach(u => {
+                const pData = buildUnitParticularsData(trip, fin, u.familyId);
+                if (!pData) return;
+                pData.expenseRows.forEach(r => {
+                    sheet5Data.push({
+                        'Account / Handler': u.headName,
+                        'Family / Group': u.title,
+                        'Entry Category': '1_EXPENSE_SHARE (DEBIT)',
+                        'Date': r.date,
+                        'Particulars': `${r.title} (${r.category})`,
+                        'Total Group Bill (₹)': r.totalBill,
+                        'Basis / Payment Mode': `${r.basisLabel} | ${r.paidByLabel}`,
+                        'Credit (+) (₹)': 0,
+                        'Consumed Share (-) (₹)': r.shareAmt
+                    });
+                });
+                pData.creditRows.forEach(c => {
+                    sheet5Data.push({
+                        'Account / Handler': u.headName,
+                        'Family / Group': u.title,
+                        'Entry Category': '2_PAYMENT_OR_ADVANCE (CREDIT)',
+                        'Date': c.date,
+                        'Particulars': `${c.typeBadge}: ${c.particulars}`,
+                        'Total Group Bill (₹)': '',
+                        'Basis / Payment Mode': c.method,
+                        'Credit (+) (₹)': c.sign === '+' ? c.amount : -c.amount,
+                        'Consumed Share (-) (₹)': 0
+                    });
+                });
+                sheet5Data.push({
+                    'Account / Handler': u.headName,
+                    'Family / Group': u.title,
+                    'Entry Category': '3_ACCOUNT_TOTAL_SUMMARY',
+                    'Date': 'TOTAL',
+                    'Particulars': `Net Settlement = ${u.netBalance >= 0 ? 'Refund +' + u.netBalance : 'Payable ' + u.netBalance}`,
+                    'Total Group Bill (₹)': '',
+                    'Basis / Payment Mode': `${u.memberCount} Pax`,
+                    'Credit (+) (₹)': u.netCredit,
+                    'Consumed Share (-) (₹)': u.consumed
+                });
+            });
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet5Data), '5_Family_Passbooks');
+
             const safeFileName = trip.name.replace(/[^a-z0-9]/gi, '_') + '_Balance_Sheet.xlsx';
             XLSX.writeFile(wb, safeFileName);
-            showToast('4-Sheet Excel Balance Sheet downloaded!');
+            showToast('5-Sheet Excel Balance Sheet & Passbooks downloaded!');
         }
 
         // --- 6. RENDER BOOKING DIRECTORY & ROSTER MANAGER ---
@@ -3969,7 +4481,7 @@
             });
         }
 
-        // --- INITIALIZE ON LOAD ---
+      // --- INITIALIZE ON LOAD ---
         window.addEventListener('DOMContentLoaded', async () => {
             const container = document.getElementById('toast-container');
             if(container) showToast('Syncing with Cloud Database...', 'info');
