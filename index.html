@@ -138,6 +138,149 @@
             background: rgba(142, 142, 147, 0.35);
             border-radius: 9999px;
         }
+
+        /* Final settlement: stable columns, readable amounts, and aligned actions. */
+        .settlement-table-scroll {
+            overflow-x: auto;
+            overscroll-behavior-inline: contain;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-gutter: stable;
+        }
+        .settlement-audit-table {
+            min-width: 1314px;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 13px;
+            line-height: 1.4;
+            font-variant-numeric: tabular-nums;
+        }
+        .settlement-audit-table th {
+            height: 64px;
+            padding: 12px 9px;
+            line-height: 1.3;
+            vertical-align: middle;
+            white-space: normal;
+            font-size: 10px;
+            font-weight: 750;
+            letter-spacing: .025em;
+        }
+        .settlement-audit-table td {
+            padding: 14px 9px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .settlement-audit-table tbody tr { height: 98px; }
+        .settlement-audit-table tbody tr:hover { background-color: rgba(248,250,252,.8); }
+        html.dark .settlement-audit-table tbody tr:hover { background-color: rgba(39,39,42,.5); }
+        .settlement-audit-table th:first-child,
+        .settlement-audit-table td:first-child { padding-left: 12px; }
+        .settlement-audit-table th:last-child,
+        .settlement-audit-table td:last-child { padding-right: 12px; }
+        .settlement-audit-table td.audit-family { white-space: normal; }
+        .audit-family-name {
+            font-size: 13px;
+            line-height: 1.4;
+            font-weight: 750;
+            overflow-wrap: anywhere;
+        }
+        .audit-family-title {
+            color: #8E8E93;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-top: 3px;
+            overflow-wrap: anywhere;
+        }
+        .audit-family-closed { display: inline-block; margin-top: 3px; font-size: 10px; font-weight: 750; color: #16a34a; }
+        .audit-status {
+            display: inline-flex;
+            min-height: 32px;
+            min-width: 148px;
+            justify-content: center;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 750;
+            line-height: 1.1;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+        .audit-status-positive { color: #059669; background: rgba(16,185,129,.12); }
+        .audit-status-negative { color: #dc2626; background: rgba(239,68,68,.1); }
+        .audit-status-zero { color: #71717a; background: #e4e4e7; }
+        .audit-status-closed { color: #15803d; background: rgba(34,197,94,.12); }
+        html.dark .audit-status-positive { color: #6ee7b7; background: rgba(16,185,129,.16); }
+        html.dark .audit-status-negative { color: #fca5a5; background: rgba(239,68,68,.18); }
+        html.dark .audit-status-zero { color: #d4d4d8; background: #3f3f46; }
+        html.dark .audit-status-closed { color: #86efac; background: rgba(34,197,94,.16); }
+        .audit-row-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            gap: 5px;
+            width: 138px;
+            min-height: 66px;
+            margin-left: auto;
+        }
+        .audit-action,
+        .audit-action-placeholder {
+            width: 100%;
+            height: 30px;
+            min-height: 30px;
+            border-radius: 9px;
+        }
+        .audit-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 0 8px;
+            font-size: 11px;
+            font-weight: 750;
+            line-height: 1;
+            white-space: nowrap;
+            transition: background-color .15s ease, color .15s ease;
+        }
+        .audit-action-details { background: rgba(0,122,255,.10); color: #007AFF; }
+        .audit-action-details:hover { background: #007AFF; color: #fff; }
+        .audit-action-close { background: rgba(52,199,89,.13); color: #16a34a; }
+        .audit-action-close:hover { background: rgba(52,199,89,.24); }
+        .audit-action-reopen { background: #e4e4e7; color: #52525b; }
+        .audit-action-reopen:hover { background: #d4d4d8; }
+        html.dark .audit-action-details { background: rgba(0,122,255,.20); color: #93c5fd; }
+        html.dark .audit-action-details:hover { background: #007AFF; color: #fff; }
+        html.dark .audit-action-close { color: #86efac; background: rgba(52,199,89,.17); }
+        html.dark .audit-action-reopen { background: #3f3f46; color: #e4e4e7; }
+        html.dark .audit-action-reopen:hover { background: #52525b; }
+        @media (max-width: 640px) {
+            .settlement-audit-table { font-size: 12px; }
+        }
+        /* Completed workspaces are archival / read-only. */
+        body.trip-readonly [data-trip-mutation],
+        body.trip-readonly #roster-add-family-section,
+        body.trip-readonly #checklist-add-form { display: none !important; }
+        body.trip-readonly #roster-money-manager-select,
+        body.trip-readonly #roster-mode-family,
+        body.trip-readonly #roster-mode-individual { pointer-events: none; opacity: .55; }
+        body.trip-readonly [onclick^="openExpenseModal("],
+        body.trip-readonly [onclick^="deleteExpense("],
+        body.trip-readonly [onclick^="openContributionModal("],
+        body.trip-readonly [onclick^="openSettlementPaymentModal("],
+        body.trip-readonly [onclick^="openLiquidityTransferModal("],
+        body.trip-readonly [onclick^="deleteLiquidityTransfer("],
+        body.trip-readonly [onclick^="deleteContribution("],
+        body.trip-readonly [onclick^="openItineraryModal("],
+        body.trip-readonly [onclick^="deleteItineraryItem("],
+        body.trip-readonly [onclick^="openMemberEditModal("],
+        body.trip-readonly [onclick^="deleteMember("],
+        body.trip-readonly [onclick^="populateFamilyEditForm("],
+        body.trip-readonly [onclick^="deleteFamilyUnit("],
+        body.trip-readonly [onclick^="setFamilyTransactionHandler("],
+        body.trip-readonly [onclick^="deleteChecklistItem("],
+        body.trip-readonly [onclick^="regroupMembersIntoFamilies("],
+        body.trip-readonly [onclick^="purgeZeroMemberFamilies("] { display: none !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col lg:flex-row selection:bg-ios-blue selection:text-white">
@@ -281,6 +424,12 @@
             </div>
         </header>
 
+        <div id="completed-trip-banner" class="hidden max-w-6xl w-full mx-auto px-4 lg:px-8 pt-4">
+            <div class="rounded-2xl p-3.5 bg-emerald-500/10 border border-emerald-500/25 flex justify-between items-center gap-3">
+                <span class="text-xs font-bold text-emerald-700 dark:text-emerald-300">🏁 Trip Completed — archived and read-only. Records are preserved.</span>
+                <button type="button" onclick="reopenTrip(getActiveTrip().id)" class="text-xs font-extrabold text-ios-blue hover:underline">Reopen</button>
+            </div>
+        </div>
         <!-- ==================== DYNAMIC VIEWS CONTAINER ==================== -->
         <main class="max-w-6xl w-full mx-auto px-4 lg:px-8 pt-5 space-y-6 flex-1">
 
@@ -350,7 +499,7 @@
 
                     <div class="ios-card p-4 sm:p-5">
                         <div class="flex items-center justify-between text-ios-gray text-xs font-bold uppercase">
-                            <span>Available Pool Cash</span>
+                            <span>Pool Liquidity (All Modes)</span>
                             <i class="ph-fill ph-wallet text-amber-500 text-lg"></i>
                         </div>
                         <div id="kpi-cash-on-hand" class="text-2xl sm:text-3xl font-extrabold mt-2 text-amber-600 dark:text-amber-400">₹0</div>
@@ -367,6 +516,8 @@
                     </div>
                 </div>
 
+                <div class="ios-card p-4 text-xs font-semibold text-ios-gray" id="home-cash-bank">Cash / Bank breakdown</div>
+
                 <!-- Analytics Chart + Family/Unit Live Standing -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     <!-- Category Doughnut Chart Card -->
@@ -377,7 +528,11 @@
                                     <h3 class="font-bold text-base">Expense Category Breakdown</h3>
                                     <p class="text-xs text-ios-gray">Real-time spending distribution</p>
                                 </div>
-                                <button onclick="switchTab('expenses'); openExpenseModal();" class="text-xs font-bold text-ios-blue hover:underline">+ Add</button>
+                                <button data-trip-mutation onclick="switchTab('expenses'); openExpenseModal();" class="text-xs font-bold text-ios-blue hover:underline">+ Add</button>
+                            </div>
+                            <div class="ios-segmented mb-3" aria-label="Chart breakdown">
+                                <button type="button" id="chart-mode-category" onclick="setAnalyticsChartMode('category')" class="ios-segment-btn active">Categories</button>
+                                <button type="button" id="chart-mode-payment" onclick="setAnalyticsChartMode('payment')" class="ios-segment-btn">Cash / Bank</button>
                             </div>
                             <div class="relative h-56 w-full flex items-center justify-center">
                                 <canvas id="categoryDoughnutChart"></canvas>
@@ -450,6 +605,14 @@
                         <option value="POOL">👑 Central Cash Pool Only</option>
                         <option value="OOP">💳 Out-of-Pocket Only</option>
                     </select>
+                    <select id="expense-sort-select" onchange="setExpenseSort(this.value)" class="ios-input sm:w-48" aria-label="Sort expenses">
+                        <option value="date-desc">Date: Newest First</option>
+                        <option value="date-asc">Date: Oldest First</option>
+                        <option value="amount-desc">Amount: High → Low</option>
+                        <option value="amount-asc">Amount: Low → High</option>
+                        <option value="category">Category A–Z</option>
+                        <option value="payer">Payer A–Z</option>
+                    </select>
                 </div>
 
                 <!-- Expenses List -->
@@ -504,6 +667,12 @@
                             <p id="pool-stat-net-cash-sub" class="text-[10px] text-ios-gray mt-0.5">₹0 Manager + ₹0 Members</p>
                         </div>
                     </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mt-5 pt-4 border-t border-ios-border dark:border-ios-darkBorder">
+                        <div><h3 class="font-bold text-base">Money Manager's Cash vs Bank</h3><p class="text-xs text-ios-gray">Live balance from deposits, pool bills, advances, refunds, and recorded cash/bank transfers.</p></div>
+                        <button data-trip-mutation type="button" onclick="openLiquidityTransferModal()" class="px-3.5 py-2 rounded-xl bg-ios-indigo/15 text-ios-indigo font-bold text-xs">↔ Cash / Bank Transfer</button>
+                    </div>
+                    <div id="pool-liquidity-breakdown" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3"></div>
+                    <p id="pool-liquidity-warning" class="hidden text-[11px] font-semibold mt-3 text-amber-600 dark:text-amber-400"></p>
                 </div>
 
                 <!-- Per-Unit Contribution & Advance Summary Grid -->
@@ -517,9 +686,20 @@
                 <div class="ios-card p-5">
                     <div class="flex items-center justify-between mb-4">
                         <div>
-                            <h3 class="font-bold text-base">Pool Deposits, Advances & Transfers Ledger</h3>
+                            <h3 class="font-bold text-base">Pool, Settlement & Cash/Bank Ledger</h3>
                             <p class="text-xs text-ios-gray">Click the pencil icon on any entry to edit or trash icon to delete</p>
                         </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2.5 mb-4">
+                        <select id="pool-family-filter" onchange="renderContributionsView()" class="ios-input sm:flex-1" aria-label="Filter contribution family"><option value="ALL">All Families / Accounts</option></select>
+                        <select id="pool-sort-select" onchange="setContributionSort(this.value)" class="ios-input sm:w-56" aria-label="Sort pool transactions">
+                            <option value="date-desc">Date: Newest First</option>
+                            <option value="date-asc">Date: Oldest First</option>
+                            <option value="amount-desc">Amount: High → Low</option>
+                            <option value="amount-asc">Amount: Low → High</option>
+                            <option value="type">Type: Deposit → OOP → Advance → Settlements → Transfers</option>
+                            <option value="family">Family A–Z</option>
+                        </select>
                     </div>
                     <div id="contributions-ledger-list" class="space-y-2.5"></div>
                 </div>
@@ -554,7 +734,7 @@
                 <!-- Checklist Sub-View -->
                 <div id="itinerary-checklist-subview" class="hidden space-y-4">
                     <div class="ios-card p-4">
-                        <form onsubmit="handleAddChecklistItem(event)" class="flex flex-col sm:flex-row gap-2.5">
+                        <form id="checklist-add-form" onsubmit="handleAddChecklistItem(event)" class="flex flex-col sm:flex-row gap-2.5">
                             <input type="text" id="checklist-new-title" required placeholder="Add packing or pre-trip task (e.g., Carry First-Aid Kit, Print Train Tickets)..." class="ios-input flex-1">
                             <select id="checklist-new-category" class="ios-input sm:w-40">
                                 <option value="Documents">📄 Documents</option>
@@ -600,27 +780,34 @@
                 <!-- Actionable Settlement Transfers (Who Pays Whom) -->
                 <div class="ios-card p-5">
                     <h3 class="font-bold text-base mb-1">Actionable Final Settlement Instructions</h3>
-                    <p class="text-xs text-ios-gray mb-4">Exact transfers required to close out the trip ledger to ₹0 balance</p>
+                    <p class="text-xs text-ios-gray mb-4">Refund excess deposits by cash or UPI/bank; record each actual payout. Partial refunds are supported, and the amount due updates automatically. A refund is not a trip expense or booking advance. First collect any outstanding dues or unused advances if the pool lacks enough funds for a refund.</p>
                     <div id="settlement-instructions-list" class="space-y-3"></div>
                 </div>
 
                 <!-- Complete Accounting Balance Sheet Table -->
                 <div class="ios-card p-5 overflow-hidden">
                     <h3 class="font-bold text-base mb-1">Complete Audit Balance Sheet</h3>
-                    <p class="text-xs text-ios-gray mb-4">Formula: <code class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">Net Credit = Pool Deposits + Out-of-Pocket Paid + Peer Sent - Pool Advances Received - Peer Received</code></p>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <p class="text-xs text-ios-gray mb-4">Formula: <code class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800">Net Credit = Pool Deposits + OOP Paid + Peer Sent - Advances - Peer Received + Settlements Received - Refunds Paid</code></p>
+                    <p class="text-[11px] text-ios-gray mb-2 sm:hidden" aria-hidden="true">Swipe sideways to view the full balance sheet ↔</p>
+                    <div class="settlement-table-scroll" role="region" aria-label="Complete audit balance sheet, horizontally scrollable" tabindex="0">
+                        <table class="settlement-audit-table text-left">
+                            <colgroup>
+                                <col style="width:192px"><col style="width:78px"><col style="width:108px"><col style="width:112px">
+                                <col style="width:132px"><col style="width:120px"><col style="width:118px"><col style="width:118px">
+                                <col style="width:178px"><col style="width:158px">
+                            </colgroup>
                             <thead>
-                                <tr class="border-b border-ios-border dark:border-ios-darkBorder text-[11px] uppercase text-ios-gray">
-                                    <th class="py-3 pr-2">Family / Handler</th>
-                                    <th class="py-3 px-2 text-center">Members</th>
-                                    <th class="py-3 px-2 text-right">Pool In (+)</th>
-                                    <th class="py-3 px-2 text-right">OOP Paid (+)</th>
-                                    <th class="py-3 px-2 text-right">Advances/Peer (±)</th>
-                                    <th class="py-3 px-2 text-right font-bold">Total Credit</th>
-                                    <th class="py-3 px-2 text-right font-bold">Total Consumed</th>
-                                    <th class="py-3 px-2 text-right font-bold">Net Settlement</th>
-                                    <th class="py-3 pl-2 text-right font-bold">Audit Trail</th>
+                                <tr class="border-b border-ios-border dark:border-ios-darkBorder uppercase text-ios-gray">
+                                    <th class="text-left">Family / Handler</th>
+                                    <th class="text-center">Members</th>
+                                    <th class="text-right">Pool In (+)</th>
+                                    <th class="text-right">OOP Paid (+)</th>
+                                    <th class="text-right">Advances / Peer (±)</th>
+                                    <th class="text-right">Settled In / Out (±)</th>
+                                    <th class="text-right">Total Credit</th>
+                                    <th class="text-right">Total Consumed</th>
+                                    <th class="text-right">Net Settlement</th>
+                                    <th class="text-right">Audit Trail</th>
                                 </tr>
                             </thead>
                             <tbody id="settlement-table-tbody" class="divide-y divide-ios-border dark:divide-ios-darkBorder"></tbody>
@@ -758,7 +945,7 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-ios-gray mb-1">Amount (₹ INR) *</label>
-                        <input type="number" id="exp-amount" required min="1" step="1" oninput="updateExpenseSplitPreview()" placeholder="e.g., 9500" class="ios-input font-bold text-base">
+                        <input type="number" id="exp-amount" required min="1" step="1" oninput="updateExpenseSplitPreview(); updatePaymentSplit()" placeholder="e.g., 9500" class="ios-input font-bold text-base">
                     </div>
 
                     <div>
@@ -781,6 +968,23 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-ios-gray mb-1">Who Paid for This? *</label>
                         <select id="exp-paid-by" class="ios-input font-semibold"></select>
+                    </div>
+                </div>
+
+                <!-- Payment channel; distinct from who funded the expense and how it is shared -->
+                <div class="pt-2 border-t border-ios-border dark:border-ios-darkBorder space-y-2.5">
+                    <label class="block text-xs font-bold uppercase text-ios-gray">Payment Method *</label>
+                    <div class="ios-segmented flex-wrap" role="group" aria-label="Payment method">
+                        <button type="button" id="payment-btn-cash" onclick="setExpensePaymentMode('cash')" class="ios-segment-btn">💵 Cash</button>
+                        <button type="button" id="payment-btn-bank" onclick="setExpensePaymentMode('bank')" class="ios-segment-btn active">💳 Bank / UPI</button>
+                        <button type="button" id="payment-btn-split" onclick="setExpensePaymentMode('split')" class="ios-segment-btn">💵+💳 Split</button>
+                    </div>
+                    <div id="exp-payment-split-fields" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-bold text-ios-gray mb-1" for="exp-cash-portion">Cash portion (₹)</label>
+                            <input id="exp-cash-portion" type="number" min="0" step="1" class="ios-input" oninput="updatePaymentSplit('cash')" placeholder="0"></div>
+                        <div><label class="block text-xs font-bold text-ios-gray mb-1" for="exp-bank-portion">Bank / UPI portion (₹)</label>
+                            <input id="exp-bank-portion" type="number" min="0" step="1" class="ios-input" oninput="updatePaymentSplit('bank')" placeholder="0"></div>
+                        <p id="exp-payment-validation" aria-live="polite" class="sm:col-span-2 text-xs font-bold text-ios-gray">Enter the portions to match the bill total.</p>
                     </div>
                 </div>
 
@@ -831,7 +1035,7 @@
 
                 <div class="flex items-center justify-end gap-2 pt-3 border-t border-ios-border dark:border-ios-darkBorder">
                     <button type="button" onclick="closeExpenseModal()" class="px-4 py-2.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 text-xs sm:text-sm font-bold">Cancel</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-ios-blue hover:bg-blue-600 text-white text-xs sm:text-sm font-bold shadow-sm">Save Expense</button>
+                    <button type="submit" id="btn-save-expense" class="px-5 py-2.5 rounded-xl bg-ios-blue hover:bg-blue-600 text-white text-xs sm:text-sm font-bold shadow-sm">Save Expense</button>
                 </div>
             </form>
         </div>
@@ -874,18 +1078,24 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-ios-gray mb-1">Amount (₹ INR) *</label>
-                        <input type="number" id="contrib-amount" required min="1" step="1" placeholder="e.g., 15000" class="ios-input font-bold text-base">
+                        <input type="number" id="contrib-amount" required min="1" step="1" oninput="validateTransactionSplit()" placeholder="e.g., 15000" class="ios-input font-bold text-base">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-ios-gray mb-1">Payment Mode *</label>
-                        <select id="contrib-method" class="ios-input">
+                        <select id="contrib-method" onchange="validateTransactionSplit()" class="ios-input">
                             <option value="UPI / GPay">📱 UPI / GPay / PhonePe</option>
                             <option value="Cash">💵 Physical Cash</option>
                             <option value="Bank Transfer">🏦 Bank Transfer / IMPS</option>
+                            <option value="Split (Cash + Bank)">💵+🏦 Split Cash + Bank</option>
                         </select>
                     </div>
 
+                    <div id="contrib-payment-split-wrap" class="sm:col-span-2 hidden grid grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Cash Portion (₹)</label><input id="contrib-cash-part" type="number" min="0" step="1" class="ios-input" oninput="updateTransactionSplit('cash')"></div>
+                        <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Bank Portion (₹)</label><input id="contrib-bank-part" type="number" min="0" step="1" class="ios-input" oninput="updateTransactionSplit('bank')"></div>
+                        <p id="contrib-payment-split-message" class="col-span-2 text-[11px]"></p>
+                    </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-ios-gray mb-1">Date *</label>
                         <input type="date" id="contrib-date" required class="ios-input">
@@ -1265,6 +1475,38 @@
         </div>
     </div>
 
+    <!-- FINAL SETTLEMENT PAYMENT / REFUND MODAL -->
+    <div id="settlement-payment-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="ios-card w-full max-w-lg p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between"><h3 id="settlement-payment-title" class="text-lg font-extrabold">Record Final Settlement</h3><button type="button" onclick="closeSettlementPaymentModal()" class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800"><i class="ph-bold ph-x"></i></button></div>
+            <p id="settlement-payment-summary" class="text-xs text-ios-gray"></p>
+            <form onsubmit="saveSettlementPayment(event)" class="space-y-3.5">
+                <input type="hidden" id="settlement-payment-family-id">
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Amount Paid / Refunded (₹)</label><input id="settlement-payment-amount" type="number" min="1" step="1" required class="ios-input font-bold"></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Paid Through</label><select id="settlement-payment-method" class="ios-input"><option value="UPI / GPay">📱 Bank / UPI</option><option value="Cash">💵 Physical Cash</option><option value="Bank Transfer">🏦 Bank Transfer</option></select></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Date</label><input id="settlement-payment-date" type="date" class="ios-input" required></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Transaction Reference / Note (Optional)</label><input id="settlement-payment-note" type="text" class="ios-input" placeholder="UPI transaction ID, receipt number, etc."></div>
+                <p class="text-[11px] text-ios-gray">Only record a payment after money actually changes hands. Refunds reduce the family's excess credit and the manager's cash/bank holdings; they do not create new expenses.</p>
+                <div class="flex justify-end gap-2"><button type="button" onclick="closeSettlementPaymentModal()" class="px-4 py-2.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 font-bold text-xs">Cancel</button><button type="submit" class="px-4 py-2.5 rounded-xl bg-ios-blue text-white font-bold text-xs">Save Settlement</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- INTERNAL CASH/BANK MOVEMENT MODAL -->
+    <div id="liquidity-transfer-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="ios-card w-full max-w-lg p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-extrabold">Cash ↔ Bank Movement</h3><button type="button" onclick="closeLiquidityTransferModal()" class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800"><i class="ph-bold ph-x"></i></button></div>
+            <p class="text-xs text-ios-gray">Record withdrawing pool money from the bank as cash, or depositing pool cash into the bank. This does not change the trip's total pool balance or settlement.</p>
+            <form onsubmit="saveLiquidityTransfer(event)" class="space-y-3.5">
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Direction</label><select id="liquidity-transfer-direction" class="ios-input"><option value="BANK_TO_CASH">🏦 Bank → 💵 Cash (Withdrawal)</option><option value="CASH_TO_BANK">💵 Cash → 🏦 Bank (Deposit)</option></select></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Amount (₹)</label><input id="liquidity-transfer-amount" type="number" min="1" step="1" required class="ios-input font-bold"></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Date</label><input id="liquidity-transfer-date" type="date" required class="ios-input"></div>
+                <div><label class="block text-xs font-bold uppercase text-ios-gray mb-1">Note (Optional)</label><input id="liquidity-transfer-note" type="text" class="ios-input" placeholder="ATM withdrawal for cash expenses"></div>
+                <div class="flex justify-end gap-2"><button type="button" onclick="closeLiquidityTransferModal()" class="px-4 py-2.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 font-bold text-xs">Cancel</button><button type="submit" class="px-4 py-2.5 rounded-xl bg-ios-blue text-white font-bold text-xs">Record Movement</button></div>
+            </form>
+        </div>
+    </div>
+
     <!-- 8. CUSTOM CONFIRMATION MODAL (REPLACES NATIVE CONFIRM/ALERT) -->
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="ios-card w-full max-w-sm p-5 text-center space-y-4">
@@ -1299,6 +1541,129 @@
         let categoryChartInstance = null;
         let newTripDraftParticipants = [];
         let selectedPassbookFamilyId = null;
+        let currentExpensePaymentMode = 'bank';
+        let activeSortExpenses = 'date-desc';
+        let activeSortContributions = 'date-desc';
+        let analyticsChartMode = 'category';
+        let currentSettlementEditId = null;
+        function todayLocalISO() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function esc(str) {
+            return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        function genId(prefix) {
+            return prefix + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+        }
+        function safeJsArg(value) { return esc(JSON.stringify(String(value ?? ''))); }
+        function isTripCompleted(trip = getActiveTrip()) { return (trip?.status || 'active') === 'completed'; }
+        function requireActiveTrip() {
+            if (!isTripCompleted()) return true;
+            showToast('This trip is completed. Reopen to add or edit records.', 'error');
+            return false;
+        }
+        function migrateTripState(state) {
+            if (!state || !Array.isArray(state.trips)) return state;
+            state.trips.forEach(trip => {
+                if (trip.status !== 'completed') trip.status = 'active';
+                trip.completedAt = trip.completedAt || null;
+                (trip.families || []).forEach(f => {
+                    f.accountClosed = Boolean(f.accountClosed);
+                    f.accountClosedAt = f.accountClosed ? (f.accountClosedAt || null) : null;
+                });
+                if (!Array.isArray(trip.liquidityTransfers)) trip.liquidityTransfers = [];
+                (trip.expenses || []).forEach(exp => {
+                    if (!['cash', 'bank', 'split'].includes(exp.paymentMode)) exp.paymentMode = null;
+                    if (exp.paymentMode !== 'split') exp.paymentSplit = null;
+                    else if (!exp.paymentSplit || typeof exp.paymentSplit !== 'object') exp.paymentSplit = null;
+                });
+            });
+            return state;
+        }
+        function getPaymentPortions(exp) {
+            const amount = Math.round(Number(exp.amount) || 0);
+            if (exp.paymentMode === 'cash') return { cash: amount, bank: 0, unknown: 0 };
+            if (exp.paymentMode === 'bank') return { cash: 0, bank: amount, unknown: 0 };
+            if (exp.paymentMode === 'split' && exp.paymentSplit) {
+                const cash = Math.round(Number(exp.paymentSplit.cash) || 0);
+                const bank = Math.round(Number(exp.paymentSplit.bank) || 0);
+                if (cash >= 0 && bank >= 0 && cash + bank === amount) return { cash, bank, unknown: 0 };
+            }
+            return { cash: 0, bank: 0, unknown: amount }; // Legacy data: do not guess mode
+        }
+        function paymentModeLabel(exp) {
+            const p = getPaymentPortions(exp);
+            if (exp.paymentMode === 'split') return `💵 Cash: ${formatINR(p.cash)} • 💳 Bank: ${formatINR(p.bank)}`;
+            return exp.paymentMode === 'cash' ? '💵 Cash' : exp.paymentMode === 'bank' ? '💳 Bank / UPI' : 'Payment method not recorded';
+        }
+        function reopenAffectedFamilies(trip, familyIds) {
+            const affected = new Set(familyIds.filter(Boolean));
+            (trip.families || []).forEach(fam => {
+                if (fam.accountClosed && affected.has(fam.id)) {
+                    fam.accountClosed = false;
+                    fam.accountClosedAt = null;
+                    showToast(`${fam.title}'s account was reopened because a new transaction was recorded.`, 'info');
+                }
+            });
+        }
+        function expenseAffectedFamilies(exp) {
+            if (!exp) return [];
+            return [...Object.entries(exp.familyShares || {}).filter(([_, amt]) => Number(amt) > 0).map(([id]) => id), exp.paidBy === 'POOL' ? '' : exp.paidBy];
+        }
+        function contributionAffectedFamilies(c) { return c ? [c.familyId, c.toFamilyId] : []; }
+        function requireOpenFamilyAccount(trip, familyId) {
+            const fam = trip.families.find(f => f.id === familyId);
+            if (!fam?.accountClosed) return true;
+            showToast(`${fam.title} is settled. Reopen the account in Final Settlement to edit its roster.`, 'error');
+            return false;
+        }
+        function closeFamilyAccount(familyId) {
+            if (!requireActiveTrip()) return;
+            const trip = getActiveTrip();
+            const family = trip.families.find(f => f.id === familyId);
+            const unit = computeTripFinancialsWithSettlements(trip).units.find(u => u.familyId === familyId);
+            if (!family || !unit || Math.abs(unit.netBalance) > 1) { showToast('Account must be within ₹1 of zero before closing.', 'error'); return; }
+            openConfirmModal('Close Family Account?', `Mark ${family.title}'s account as closed? This confirms their balance is fully settled and locks their record.`, () => {
+                if (!requireActiveTrip()) return;
+                family.accountClosed = true;
+                family.accountClosedAt = new Date().toISOString();
+                saveState(); renderApp(); showToast(`${family.title} marked as settled.`);
+            });
+        }
+        function reopenFamilyAccount(familyId) {
+            if (!requireActiveTrip()) return;
+            const family = getActiveTrip().families.find(f => f.id === familyId);
+            if (!family) return;
+            family.accountClosed = false; family.accountClosedAt = null;
+            saveState(); renderApp(); showToast(`${family.title} account reopened.`);
+        }
+        function completeTrip(tripId) {
+            const trip = appState.trips.find(t => t.id === tripId);
+            if (!trip || isTripCompleted(trip)) return;
+            openConfirmModal('Complete Trip?', `Mark ${trip.name} as Completed? The trip will be archived and become read-only. You can still view all data but cannot add or edit records.`, () => {
+                trip.status = 'completed'; trip.completedAt = new Date().toISOString();
+                document.querySelectorAll('#expense-modal,#contribution-modal,#itinerary-modal,#member-edit-modal,#family-manager-modal,#settlement-payment-modal,#liquidity-transfer-modal').forEach(m => m.classList.add('hidden'));
+                saveState(); renderTripManagerModal(); renderApp(); showToast('Trip archived as completed.');
+            });
+        }
+        function reopenTrip(tripId) {
+            const trip = appState.trips.find(t => t.id === tripId);
+            if (!trip || !isTripCompleted(trip)) return;
+            openConfirmModal('Reopen Trip?', `Reopen ${trip.name} for editing and new transactions?`, () => {
+                trip.status = 'active'; trip.completedAt = null;
+                saveState(); renderApp();
+                if (!document.getElementById('trip-manager-modal').classList.contains('hidden')) renderTripManagerModal();
+                showToast('Trip reopened for editing.');
+            });
+        }
+        function setExpenseSort(mode) { activeSortExpenses = mode; renderExpensesView(); }
+        function setContributionSort(mode) { activeSortContributions = mode; renderContributionsView(); }
+        function setAnalyticsChartMode(mode) {
+            analyticsChartMode = mode === 'payment' ? 'payment' : 'category';
+            renderHomeView();
+        }
 
         // --- UTF-8 SAFE BASE64 HELPERS FOR SYNC ---
         function utf8ToBase64(str) {
@@ -1336,7 +1701,7 @@
                 ? 'bg-ios-blue text-white'
                 : 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900';
             el.className = `${colors} px-4 py-2.5 rounded-2xl shadow-lg text-xs font-bold flex items-center gap-2 pointer-events-auto transition-all duration-300`;
-            el.innerHTML = `<i class="ph-fill ${type === 'error' ? 'ph-warning-octagon' : 'ph-check-circle'} text-base"></i><span>${message}</span>`;
+            el.innerHTML = `<i class="ph-fill ${type === 'error' ? 'ph-warning-octagon' : 'ph-check-circle'} text-base"></i><span>${esc(message)}</span>`;
             container.appendChild(el);
             setTimeout(() => {
                 el.style.opacity = '0';
@@ -1558,10 +1923,10 @@
                 const cloudData = await response.json();
 
                 if (cloudData && Array.isArray(cloudData.trips) && cloudData.trips.length > 0) {
-                    appState = cloudData;
+                    appState = migrateTripState(cloudData);
                     if (!Array.isArray(appState.masterContacts)) appState.masterContacts = [];
                     syncCurrentMembersToMasterContacts();
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); // Keep local backup
+                    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) { if (e.name === 'QuotaExceededError') showToast('⚠️ Storage full — export your data.', 'error'); } // Keep local backup
                     return;
                 }
             } catch (e) {
@@ -1574,7 +1939,7 @@
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     if (parsed && Array.isArray(parsed.trips) && parsed.trips.length > 0) {
-                        appState = parsed;
+                        appState = migrateTripState(parsed);
                         if (!Array.isArray(appState.masterContacts)) appState.masterContacts = [];
                         syncCurrentMembersToMasterContacts();
                         return;
@@ -1584,26 +1949,27 @@
                 console.warn('Could not read saved state, loading defaults.', e);
             }
             
-            appState = getDefaultState();
+            appState = migrateTripState(getDefaultState());
             saveState();
         }
 
         async function saveState() {
+            syncCurrentMembersToMasterContacts();
+            const stateStr = JSON.stringify(appState);
             try {
-                syncCurrentMembersToMasterContacts();
-                const stateStr = JSON.stringify(appState);
-                
-                // Save locally so the app feels fast
                 localStorage.setItem(STORAGE_KEY, stateStr);
-                
-                // Save to Firebase Cloud Notebook silently in the background
-                await fetch('https://trip-planner-os-default-rtdb.firebaseio.com/appState.json', {
-                    method: 'PUT',
-                    body: stateStr,
-                    headers: { 'Content-Type': 'application/json' }
-                });
             } catch (e) {
-                showToast('Error syncing to cloud.', 'error');
+                if (e?.name === 'QuotaExceededError') showToast('⚠️ Storage full — export your data.', 'error');
+                else showToast('Could not save locally. Export a backup.', 'error');
+            }
+            try {
+                const response = await fetch('https://trip-planner-os-default-rtdb.firebaseio.com/appState.json', {
+                    method: 'PUT', body: stateStr, headers: { 'Content-Type': 'application/json' }
+                });
+                if (!response.ok) throw new Error(`Firebase HTTP ${response.status}`);
+            } catch (e) {
+                console.warn('Cloud sync failed:', e);
+                showToast('Cloud sync unavailable; local copy retained if storage permits.', 'error');
             }
         }
 
@@ -1828,6 +2194,221 @@
             };
         }
 
+        // The original computeTripFinancials is intentionally unchanged. Settlement receipts and
+        // refunds are account movements, not new expense shares or booking advances.
+        function computeTripFinancialsWithSettlements(trip) {
+            const fin = computeTripFinancials(trip);
+            let collected = 0, refunded = 0, returnedUnspent = 0;
+            (trip.contributions || []).forEach(c => {
+                if (c.type !== 'SETTLEMENT_IN' && c.type !== 'SETTLEMENT_OUT') return;
+                const unit = fin.units.find(u => u.familyId === c.familyId);
+                if (!unit) return;
+                const amt = Math.max(0, Math.round(Number(c.amount) || 0));
+                const sign = c.type === 'SETTLEMENT_IN' ? 1 : -1;
+                unit.settlementReceived = (unit.settlementReceived || 0) + (sign > 0 ? amt : 0);
+                unit.settlementRefunded = (unit.settlementRefunded || 0) + (sign < 0 ? amt : 0);
+                unit.netCredit += sign * amt;
+                unit.netBalance += sign * amt;
+                if (sign > 0) {
+                    collected += amt;
+                    // Collecting money previously advanced to members moves it back to the
+                    // manager, avoiding double-counting it as still held with members.
+                    const unspent = Math.min(unit.unspentAdvance, amt);
+                    unit.unspentAdvance -= unspent;
+                    returnedUnspent += unspent;
+                } else refunded += amt;
+            });
+            fin.settlementCollected = collected;
+            fin.settlementRefunded = refunded;
+            fin.totalUnspentAdvances = Math.max(0, fin.totalUnspentAdvances - returnedUnspent);
+            fin.netPoolCashHeld += collected - refunded;
+            fin.totalAvailablePoolCash = fin.netPoolCashHeld + fin.totalUnspentAdvances;
+            return fin;
+        }
+
+        function getTransactionPortions(transaction) {
+            const amount = Math.max(0, Math.round(Number(transaction.amount) || 0));
+            const mode = String(transaction.method || '').toLowerCase();
+            if (mode === 'cash') return { cash: amount, bank: 0, unknown: 0 };
+            if (mode === 'split (cash + bank)' && transaction.paymentSplit) {
+                const cash = Number(transaction.paymentSplit.cash);
+                const bank = Number(transaction.paymentSplit.bank);
+                if (Number.isInteger(cash) && Number.isInteger(bank) && cash >= 0 && bank >= 0 && cash + bank === amount)
+                    return { cash, bank, unknown: 0 };
+            }
+            if (/upi|gpay|phonepe|bank|imps|neft|rtgs/.test(mode)) return { cash: 0, bank: amount, unknown: 0 };
+            return { cash: 0, bank: 0, unknown: amount };
+        }
+
+        // Tracks money actually held by the manager, not pooled advances still with members.
+        // Unknown methods remain unclassified rather than being silently assumed to be cash.
+        function getManagerLiquidity(trip) {
+            const holdings = { cash: 0, bank: 0, unknown: 0 };
+            const move = (portions, sign) => {
+                holdings.cash += sign * portions.cash;
+                holdings.bank += sign * portions.bank;
+                holdings.unknown += sign * portions.unknown;
+            };
+            (trip.contributions || []).forEach(c => {
+                const sign = {DEPOSIT: 1, ADVANCE: -1, SETTLEMENT_IN: 1, SETTLEMENT_OUT: -1}[c.type || 'DEPOSIT'];
+                if (sign) move(getTransactionPortions(c), sign);
+            });
+            (trip.expenses || []).filter(e => e.paidBy === 'POOL').forEach(e => move(getPaymentPortions(e), -1));
+            (trip.liquidityTransfers || []).forEach(t => {
+                const amt = Math.max(0, Math.round(Number(t.amount) || 0));
+                if (t.direction === 'BANK_TO_CASH') { holdings.bank -= amt; holdings.cash += amt; }
+                if (t.direction === 'CASH_TO_BANK') { holdings.cash -= amt; holdings.bank += amt; }
+            });
+            holdings.total = holdings.cash + holdings.bank + holdings.unknown;
+            return holdings;
+        }
+
+        function showManagerHoldings(trip, fin) {
+            const holdings = getManagerLiquidity(trip);
+            const target = document.getElementById('pool-liquidity-breakdown');
+            if (!target) return;
+            target.innerHTML = `
+                <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/70">
+                    <p class="text-[11px] uppercase font-bold text-ios-gray">💵 Physical Cash with Manager</p>
+                    <p class="text-xl font-extrabold mt-1 ${holdings.cash < 0 ? 'text-ios-red' : 'text-ios-green'}">${formatINR(holdings.cash)}</p>
+                </div>
+                <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/70">
+                    <p class="text-[11px] uppercase font-bold text-ios-gray">🏦 Bank / UPI with Manager</p>
+                    <p class="text-xl font-extrabold mt-1 ${holdings.bank < 0 ? 'text-ios-red' : 'text-ios-blue'}">${formatINR(holdings.bank)}</p>
+                </div>
+                <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/70">
+                    <p class="text-[11px] uppercase font-bold text-ios-gray">👥 Unspent Advances with Members</p>
+                    <p class="text-xl font-extrabold mt-1 text-amber-600 dark:text-amber-400">${formatINR(fin.totalUnspentAdvances)}</p>
+                </div>
+                <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/70">
+                    <p class="text-[11px] uppercase font-bold text-ios-gray">Manager's Total Holdings</p>
+                    <p class="text-xl font-extrabold mt-1">${formatINR(holdings.total)}</p>
+                    <p class="text-[10px] text-ios-gray mt-1">Cash + Bank + unclassified</p>
+                </div>
+            `;
+            const warn = document.getElementById('pool-liquidity-warning');
+            warn.classList.toggle('hidden', holdings.unknown === 0 && holdings.cash >= 0 && holdings.bank >= 0);
+            warn.innerText = holdings.unknown !== 0
+                ? `⚠️ ${formatINR(holdings.unknown)} net unclassified: older pool bills or transactions lack payment modes. Edit those records to accurately divide cash and bank. Negative figures mean a payment method is overdrawn or missing a cash↔bank transfer.`
+                : '⚠️ A cash or bank balance is negative. Check payment methods and record any cash↔bank withdrawal/deposit that occurred.';
+        }
+
+        function validateTransactionSplit() {
+            const split = document.getElementById('contrib-method').value === 'Split (Cash + Bank)';
+            const wrap = document.getElementById('contrib-payment-split-wrap');
+            wrap.classList.toggle('hidden', !split);
+            if (!split) return true;
+            const amt = Number(document.getElementById('contrib-amount').value);
+            const cash = Number(document.getElementById('contrib-cash-part').value);
+            const bank = Number(document.getElementById('contrib-bank-part').value);
+            const valid = Number.isInteger(amt) && amt > 0 && Number.isInteger(cash) && cash >= 0 && Number.isInteger(bank) && bank >= 0 && cash + bank === amt;
+            const label = document.getElementById('contrib-payment-split-message');
+            label.className = `text-[11px] font-semibold ${valid ? 'text-ios-green' : 'text-ios-red'}`;
+            label.innerText = `${formatINR(cash)} cash + ${formatINR(bank)} bank = ${formatINR(amt)} ${valid ? '✓' : '— amounts must match'}`;
+            return valid;
+        }
+        function updateTransactionSplit(changed) {
+            const amount = Math.max(0, Number(document.getElementById('contrib-amount').value) || 0);
+            const other = changed === 'cash' ? 'contrib-bank-part' : 'contrib-cash-part';
+            const current = Number(document.getElementById(changed === 'cash' ? 'contrib-cash-part' : 'contrib-bank-part').value) || 0;
+            document.getElementById(other).value = Math.max(0, amount - current);
+            validateTransactionSplit();
+        }
+
+        function openSettlementPaymentModal(familyId, editId = null) {
+            if (!requireActiveTrip()) return;
+            const trip = getActiveTrip();
+            const prior = editId ? (trip.contributions || []).find(c => c.id === editId && ['SETTLEMENT_IN', 'SETTLEMENT_OUT'].includes(c.type)) : null;
+            if (editId && !prior) return;
+            const baseTrip = prior ? { ...trip, contributions: trip.contributions.filter(c => c.id !== editId) } : trip;
+            const unit = computeTripFinancialsWithSettlements(baseTrip).units.find(u => u.familyId === familyId);
+            if (!unit || Math.abs(unit.netBalance) < 1) { showToast('This account has no outstanding amount to settle.', 'info'); return; }
+            const type = unit.netBalance < 0 ? 'SETTLEMENT_IN' : 'SETTLEMENT_OUT';
+            if (prior && prior.type !== type) { showToast('The original payment direction has changed. Delete it and add a new settlement.', 'error'); return; }
+            currentSettlementEditId = editId;
+            document.getElementById('settlement-payment-family-id').value = familyId;
+            document.getElementById('settlement-payment-title').innerText = type === 'SETTLEMENT_IN' ? 'Record Payment to Money Manager' : 'Record Refund from Money Manager';
+            document.getElementById('settlement-payment-summary').innerText = type === 'SETTLEMENT_IN'
+                ? `${unit.headName} owes ${formatINR(-unit.netBalance)} to the Money Manager. Record the money actually received.`
+                : `${unit.headName} is owed ${formatINR(unit.netBalance)} by the Money Manager. Record the money actually refunded.`;
+            document.getElementById('settlement-payment-amount').value = prior?.amount || Math.abs(unit.netBalance);
+            document.getElementById('settlement-payment-amount').max = Math.abs(unit.netBalance);
+            document.getElementById('settlement-payment-method').value = prior?.method || 'UPI / GPay';
+            document.getElementById('settlement-payment-date').value = prior?.date || todayLocalISO();
+            document.getElementById('settlement-payment-note').value = prior?.note || '';
+            document.getElementById('settlement-payment-modal').classList.remove('hidden');
+        }
+        function closeSettlementPaymentModal() { document.getElementById('settlement-payment-modal').classList.add('hidden'); currentSettlementEditId = null; }
+        function saveSettlementPayment(event) {
+            event.preventDefault();
+            if (!requireActiveTrip()) return;
+            const trip = getActiveTrip();
+            const familyId = document.getElementById('settlement-payment-family-id').value;
+            const prior = currentSettlementEditId ? trip.contributions.find(c => c.id === currentSettlementEditId) : null;
+            const base = prior ? { ...trip, contributions: trip.contributions.filter(c => c.id !== prior.id) } : trip;
+            const unit = computeTripFinancialsWithSettlements(base).units.find(u => u.familyId === familyId);
+            const amount = Number(document.getElementById('settlement-payment-amount').value);
+            const type = unit?.netBalance < 0 ? 'SETTLEMENT_IN' : 'SETTLEMENT_OUT';
+            const method = document.getElementById('settlement-payment-method').value;
+            if (!unit || !Number.isSafeInteger(amount) || amount < 1 || amount > Math.abs(unit.netBalance)) {
+                showToast('Amount must be a whole rupee between ₹1 and the outstanding balance.', 'error'); return;
+            }
+            if (prior && type !== prior.type) { showToast('This settlement direction no longer matches the balance.', 'error'); return; }
+            if (type === 'SETTLEMENT_OUT') {
+                const liquid = getManagerLiquidity(base);
+                const channel = method === 'Cash' ? 'cash' : 'bank';
+                if (liquid.total < amount) {
+                    showToast(`Only ${formatINR(liquid.total)} remains with the manager. Collect outstanding payments or returned advances before issuing this refund.`, 'error'); return;
+                }
+                if (liquid[channel] < amount) {
+                    showToast(`Only ${formatINR(liquid[channel])} available in ${channel}. Choose another mode, record a cash/bank transfer, or pay a partial amount.`, 'error'); return;
+                }
+            }
+            const record = {id: prior?.id || genId('settle'), type, familyId, toFamilyId: null,
+                amount, method, date: document.getElementById('settlement-payment-date').value,
+                note: document.getElementById('settlement-payment-note').value.trim()};
+            if (prior) trip.contributions[trip.contributions.findIndex(c => c.id === prior.id)] = record;
+            else trip.contributions.push(record);
+            reopenAffectedFamilies(trip, [familyId]);
+            saveState(); closeSettlementPaymentModal(); renderApp();
+            showToast(type === 'SETTLEMENT_OUT' ? 'Refund recorded. Remaining balance updated.' : 'Settlement payment received and recorded.');
+        }
+
+        function openLiquidityTransferModal() {
+            if (!requireActiveTrip()) return;
+            document.getElementById('liquidity-transfer-direction').value = 'BANK_TO_CASH';
+            document.getElementById('liquidity-transfer-amount').value = '';
+            document.getElementById('liquidity-transfer-date').value = todayLocalISO();
+            document.getElementById('liquidity-transfer-note').value = '';
+            document.getElementById('liquidity-transfer-modal').classList.remove('hidden');
+        }
+        function closeLiquidityTransferModal() { document.getElementById('liquidity-transfer-modal').classList.add('hidden'); }
+        function saveLiquidityTransfer(event) {
+            event.preventDefault();
+            if (!requireActiveTrip()) return;
+            const trip = getActiveTrip();
+            const direction = document.getElementById('liquidity-transfer-direction').value;
+            const amount = Number(document.getElementById('liquidity-transfer-amount').value);
+            if (!Number.isSafeInteger(amount) || amount < 1 || !['BANK_TO_CASH','CASH_TO_BANK'].includes(direction)) {
+                showToast('Enter a valid whole-rupee transfer amount.', 'error'); return;
+            }
+            const balances = getManagerLiquidity(trip);
+            const source = direction === 'BANK_TO_CASH' ? 'bank' : 'cash';
+            if (amount > balances[source]) { showToast(`Only ${formatINR(balances[source])} available in ${source}.`, 'error'); return; }
+            trip.liquidityTransfers.push({id: genId('mode'), type: 'MODE_TRANSFER', direction, amount,
+                date: document.getElementById('liquidity-transfer-date').value,
+                note: document.getElementById('liquidity-transfer-note').value.trim()});
+            saveState(); closeLiquidityTransferModal(); renderApp(); showToast('Cash/bank movement recorded without changing pool total.');
+        }
+        function deleteLiquidityTransfer(id) {
+            if (!requireActiveTrip()) return;
+            openConfirmModal('Delete Cash/Bank Movement?', 'This only changes the cash/bank breakdown, not the trip settlement.', () => {
+                const trip = getActiveTrip();
+                trip.liquidityTransfers = trip.liquidityTransfers.filter(t => t.id !== id);
+                saveState(); renderApp(); showToast('Cash/bank movement removed.');
+            });
+        }
+
         // --- TAB & THEME NAVIGATION ---
         function switchTab(tabId) {
             currentTab = tabId;
@@ -1881,7 +2462,7 @@
         // --- MASTER RENDER DISPATCHER ---
         function renderApp() {
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const managerFam = trip.families.find(f => f.id === trip.moneyManagerFamilyId) || trip.families[0];
             const managerName = managerFam ? managerFam.headName : 'Unassigned';
 
@@ -1895,6 +2476,8 @@
             document.getElementById('header-total-trips').innerText = appState.trips.length;
             document.getElementById('header-trip-subtitle').innerText = `${trip.destination} • ${trip.members.length} Members • Managed by ${managerName}`;
 
+            document.body.classList.toggle('trip-readonly', isTripCompleted(trip));
+            document.getElementById('completed-trip-banner').classList.toggle('hidden', !isTripCompleted(trip));
             // Counts on Sidebar Badges
             document.getElementById('badge-expenses-count').innerText = (trip.expenses || []).length;
             document.getElementById('badge-pool-count').innerText = (trip.contributions || []).length;
@@ -1911,7 +2494,7 @@
         }
 
         // --- 1. RENDER HOME & ANALYTICS VIEW ---
-        function renderHomeView(trip = getActiveTrip(), fin = computeTripFinancials(trip), managerName = '') {
+        function renderHomeView(trip = getActiveTrip(), fin = computeTripFinancialsWithSettlements(trip), managerName = '') {
             if (!managerName) {
                 const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
                 managerName = mf ? mf.headName : 'Unassigned';
@@ -1923,10 +2506,10 @@
             const diffDays = Math.max(1, Math.round((d2 - d1) / (1000 * 60 * 60 * 24)) + 1);
 
             document.getElementById('home-mode-pill').innerText = trip.groupMode === 'individual' ? '🧑‍🤝‍🧑 Individual / Friends Mode' : '👨‍👩‍👧‍👦 Multi-Family Mode';
-            document.getElementById('home-dates-pill').innerHTML = `<i class="ph-bold ph-calendar-blank"></i> ${trip.startDate} → ${trip.endDate}`;
+            document.getElementById('home-dates-pill').innerHTML = `<i class="ph-bold ph-calendar-blank"></i> ${esc(trip.startDate)} → ${esc(trip.endDate)}`;
             document.getElementById('home-tenure-pill').innerText = `${diffDays} Days`;
             document.getElementById('home-trip-name').innerText = trip.name;
-            document.getElementById('home-trip-destination').innerHTML = `<i class="ph-fill ph-map-pin text-ios-red"></i> ${trip.destination}`;
+            document.getElementById('home-trip-destination').innerHTML = `<i class="ph-fill ph-map-pin text-ios-red"></i> ${esc(trip.destination)}`;
             document.getElementById('home-manager-name').innerText = managerName;
 
             // Budget Utilization
@@ -1943,6 +2526,8 @@
             document.getElementById('kpi-pool-collected').innerText = formatINR(fin.grossPoolDeposits);
             document.getElementById('kpi-pool-sub').innerText = `Advances sent: ${formatINR(fin.poolAdvancesSent)}`;
             document.getElementById('kpi-cash-on-hand').innerText = formatINR(fin.totalAvailablePoolCash);
+            const liquid = getManagerLiquidity(trip);
+            document.getElementById('home-cash-bank').innerText = `💵 Cash ${formatINR(liquid.cash)}  •  🏦 Bank ${formatINR(liquid.bank)}  •  👥 Member advances ${formatINR(fin.totalUnspentAdvances)}`;
             document.getElementById('kpi-cash-sub').innerText = fin.totalUnspentAdvances > 0
                 ? `${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} w/ Members`
                 : (fin.netPoolCashHeld >= 0 ? `Held by Money Manager` : `Pool overdrawn (Manager OOP)`);
@@ -1963,7 +2548,17 @@
                 Misc: '#8E8E93'
             };
 
-            const activeCats = Object.entries(fin.categories).filter(([_, val]) => val > 0);
+            const modeButtons = ['category', 'payment'];
+            modeButtons.forEach(mode => document.getElementById(`chart-mode-${mode}`).classList.toggle('active', analyticsChartMode === mode));
+            const paymentTotals = (trip.expenses || []).reduce((acc, exp) => {
+                const parts = getPaymentPortions(exp);
+                acc.Cash += parts.cash; acc.Bank += parts.bank; acc.Unspecified += parts.unknown;
+                return acc;
+            }, { Cash: 0, Bank: 0, Unspecified: 0 });
+            const chartColorMap = analyticsChartMode === 'payment'
+                ? { Cash: '#34C759', Bank: '#007AFF', Unspecified: '#8E8E93' }
+                : catColors;
+            const activeCats = Object.entries(analyticsChartMode === 'payment' ? paymentTotals : fin.categories).filter(([_, val]) => val > 0);
             if (categoryChartInstance) {
                 categoryChartInstance.destroy();
                 categoryChartInstance = null;
@@ -1980,7 +2575,7 @@
                         labels: activeCats.map(c => c[0]),
                         datasets: [{
                             data: activeCats.map(c => c[1]),
-                            backgroundColor: activeCats.map(c => catColors[c[0]] || '#007AFF'),
+                            backgroundColor: activeCats.map(c => chartColorMap[c[0]] || '#007AFF'),
                             borderWidth: 0,
                             hoverOffset: 6
                         }]
@@ -2000,8 +2595,8 @@
                     return `
                         <div class="flex items-center justify-between p-1.5 rounded-lg bg-ios-bg dark:bg-zinc-800/70">
                             <div class="flex items-center gap-2 truncate">
-                                <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${catColors[cat]}"></span>
-                                <span class="font-semibold truncate">${cat}</span>
+                                <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${chartColorMap[cat]}"></span>
+                                <span class="font-semibold truncate">${esc(cat)}</span>
                             </div>
                             <span class="font-bold">${formatINR(val)} <span class="text-[10px] text-ios-gray">(${cPct}%)</span></span>
                         </div>
@@ -2016,26 +2611,29 @@
 
             const tbody = document.getElementById('home-units-tbody');
             tbody.innerHTML = fin.units.map(u => {
+                const family = trip.families.find(f => f.id === u.familyId);
+                const closed = Boolean(family?.accountClosed);
                 const balBadge = u.netBalance > 0
                     ? `<span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">+${formatINR(u.netBalance)}</span>`
                     : u.netBalance < 0
                     ? `<span class="px-2 py-0.5 rounded-md bg-ios-red/15 text-ios-red font-bold">${formatINR(u.netBalance)}</span>`
                     : `<span class="px-2 py-0.5 rounded-md bg-zinc-200 dark:bg-zinc-700 text-ios-gray font-bold">₹0</span>`;
                 return `
-                    <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition">
+                    <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition ${closed ? 'opacity-60' : ''}">
                         <td class="py-3 pr-2">
                             <div class="font-bold flex items-center gap-1.5">
-                                <span>${u.headName}</span>
+                                <span>${esc(u.headName)}</span>
+                                ${closed ? '<span class="text-[10px] font-bold text-ios-green">✅ Settled</span>' : ''}
                                 ${u.isManager ? '<span title="Designated Money Manager" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-extrabold">👑 Manager</span>' : ''}
                             </div>
-                            ${trip.groupMode === 'family' ? `<div class="text-[11px] text-ios-gray">${u.title}</div>` : ''}
+                            ${trip.groupMode === 'family' ? `<div class="text-[11px] text-ios-gray">${esc(u.title)}</div>` : ''}
                         </td>
                         <td class="py-3 px-2 text-center font-semibold">${u.memberCount}</td>
                         <td class="py-3 px-2 text-right font-semibold text-emerald-600 dark:text-emerald-400">${formatINR(u.netCredit)}</td>
                         <td class="py-3 px-2 text-right font-semibold">${formatINR(u.consumed)}</td>
                         <td class="py-3 px-2 text-right">${balBadge}</td>
                         <td class="py-3 pl-2 text-right">
-                            <button onclick="openUnitPassbookModal('${u.familyId}')" class="px-2.5 py-1 rounded-lg bg-ios-blue/10 hover:bg-ios-blue hover:text-white text-ios-blue font-bold text-[11px] inline-flex items-center gap-1 transition">
+                            <button onclick="openUnitPassbookModal(${safeJsArg(u.familyId)})" class="px-2.5 py-1 rounded-lg bg-ios-blue/10 hover:bg-ios-blue hover:text-white text-ios-blue font-bold text-[11px] inline-flex items-center gap-1 transition">
                                 <i class="ph-bold ph-file-text"></i> Particulars
                             </button>
                         </td>
@@ -2045,11 +2643,13 @@
         }
 
         // --- 2. RENDER SMART EXPENSES VIEW & MODAL ---
-        function renderExpensesView(trip = getActiveTrip(), fin = computeTripFinancials(trip)) {
+        function renderExpensesView(trip = getActiveTrip(), fin = computeTripFinancialsWithSettlements(trip)) {
             const searchQ = (document.getElementById('expense-search-input')?.value || '').toLowerCase().trim();
             const catFilter = document.getElementById('expense-category-filter')?.value || 'ALL';
             const payerFilter = document.getElementById('expense-payer-filter')?.value || 'ALL';
 
+            const sortEl = document.getElementById('expense-sort-select');
+            if (sortEl) sortEl.value = activeSortExpenses;
             const catIcons = { Travel: '🚌', Stay: '🏨', Food: '🍽️', Activities: '🎟️', Shopping: '🛍️', Misc: '📦' };
             const listEl = document.getElementById('expenses-list-container');
 
@@ -2067,6 +2667,18 @@
                 return true;
             });
 
+            const index = new Map((trip.expenses || []).map((e, i) => [e, i]));
+            const payerName = e => e.paidBy === 'POOL' ? 'Central Cash Pool' : (trip.families.find(f => f.id === e.paidBy)?.headName || '');
+            filtered.sort((a, b) => {
+                switch (activeSortExpenses) {
+                    case 'date-asc': return (a.date || '').localeCompare(b.date || '') || index.get(a) - index.get(b);
+                    case 'amount-desc': return (Number(b.amount) - Number(a.amount)) || (index.get(b) - index.get(a));
+                    case 'amount-asc': return (Number(a.amount) - Number(b.amount)) || (index.get(b) - index.get(a));
+                    case 'category': return (a.category || '').localeCompare(b.category || '') || index.get(b) - index.get(a);
+                    case 'payer': return payerName(a).localeCompare(payerName(b)) || index.get(b) - index.get(a);
+                    default: return (b.date || '').localeCompare(a.date || '') || index.get(b) - index.get(a);
+                }
+            });
             if (filtered.length === 0) {
                 listEl.innerHTML = `
                     <div class="ios-card p-10 text-center space-y-2">
@@ -2078,11 +2690,11 @@
                 return;
             }
 
-            listEl.innerHTML = filtered.slice().reverse().map(exp => {
+            listEl.innerHTML = filtered.map(exp => {
                 const payerFam = trip.families.find(f => f.id === exp.paidBy);
                 const payerBadge = exp.paidBy === 'POOL'
                     ? `<span class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold text-[11px]">👑 Paid from Central Pool</span>`
-                    : `<span class="px-2 py-0.5 rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-300 font-bold text-[11px]">💳 Paid OOP by ${payerFam ? payerFam.headName : 'Member'}</span>`;
+                    : `<span class="px-2 py-0.5 rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-300 font-bold text-[11px]">💳 Paid OOP by ${esc(payerFam ? payerFam.headName : 'Member')}</span>`;
 
                 const splitBadge = exp.splitMode === 'equal'
                     ? `Equal (${(exp.selectedMemberIds || []).length} Pax)`
@@ -2090,11 +2702,14 @@
                     ? '% Split'
                     : 'Exact ₹ Split';
 
+                const paymentBadge = exp.paymentMode === 'split'
+                    ? `<span class="px-2 py-0.5 rounded-md bg-ios-indigo/15 text-ios-indigo font-bold text-[11px]" title="${esc(paymentModeLabel(exp))}">💳+💵 Split • ${esc(paymentModeLabel(exp))}</span>`
+                    : `<span class="px-2 py-0.5 rounded-md bg-ios-bg dark:bg-zinc-800 font-bold text-[11px]">${esc(paymentModeLabel(exp))}</span>`;
                 const sharePills = trip.families.map(f => {
                     const sh = exp.familyShares?.[f.id] || 0;
                     if (sh <= 0) return '';
                     const label = trip.groupMode === 'individual' ? f.headName.split(' ')[0] : f.title.replace(' Family', '');
-                    return `<span class="text-[11px] px-2 py-0.5 rounded-lg bg-ios-bg dark:bg-zinc-800 font-medium">${label}: <strong>${formatINR(sh)}</strong></span>`;
+                    return `<span class="text-[11px] px-2 py-0.5 rounded-lg bg-ios-bg dark:bg-zinc-800 font-medium">${esc(label)}: <strong>${formatINR(sh)}</strong></span>`;
                 }).filter(Boolean).join('');
 
                 return `
@@ -2106,16 +2721,17 @@
                                 </div>
                                 <div class="space-y-1">
                                     <div class="flex items-center gap-2 flex-wrap">
-                                        <h4 class="font-extrabold text-sm sm:text-base">${exp.title}</h4>
+                                        <h4 class="font-extrabold text-sm sm:text-base">${esc(exp.title)}</h4>
                                         ${exp.receiptData ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600">📎 Receipt Attached</span>` : ''}
                                     </div>
                                     <div class="flex items-center gap-2 flex-wrap text-xs text-ios-gray">
-                                        <span>📅 ${exp.date}</span>
+                                        <span>📅 ${esc(exp.date)}</span>
                                         <span>•</span>
-                                        <span>${exp.category}</span>
+                                        <span>${esc(exp.category)}</span>
                                         <span>•</span>
                                         <span>${splitBadge}</span>
                                         ${payerBadge}
+                                        ${paymentBadge}
                                     </div>
                                 </div>
                             </div>
@@ -2126,10 +2742,10 @@
                                     <div class="text-[10px] text-ios-gray uppercase font-bold">Total Bill</div>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <button onclick="openExpenseModal('${exp.id}')" title="Edit Expense" class="w-9 h-9 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
+                                    <button onclick="openExpenseModal(${safeJsArg(exp.id)})" title="Edit Expense" class="w-9 h-9 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
                                         <i class="ph-bold ph-pencil-simple"></i>
                                     </button>
-                                    <button onclick="deleteExpense('${exp.id}')" title="Delete Expense" class="w-9 h-9 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
+                                    <button onclick="deleteExpense(${safeJsArg(exp.id)})" title="Delete Expense" class="w-9 h-9 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
                                         <i class="ph-bold ph-trash"></i>
                                     </button>
                                 </div>
@@ -2144,14 +2760,15 @@
         }
 
         function openExpenseModal(editId = null) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const modal = document.getElementById('expense-modal');
             const paidBySelect = document.getElementById('exp-paid-by');
             const managerFam = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
 
             paidBySelect.innerHTML = `
-                <option value="POOL">👑 Central Cash Pool (${managerFam ? managerFam.headName : 'Money Manager'})</option>
-                ${trip.families.map(f => `<option value="${f.id}">💳 Out-of-Pocket: ${f.headName} (${f.title})</option>`).join('')}
+                <option value="POOL">👑 Central Cash Pool (${esc(managerFam ? managerFam.headName : 'Money Manager')})</option>
+                ${trip.families.map(f => `<option value="${esc(f.id)}">💳 Out-of-Pocket: ${esc(f.headName)} (${esc(f.title)})</option>`).join('')}
             `;
 
             if (editId) {
@@ -2178,6 +2795,8 @@
                 setExpenseSplitMode('equal', null);
             }
 
+            const existingExp = editId ? trip.expenses.find(e => e.id === editId) : null;
+            setExpensePaymentMode(existingExp?.paymentMode || 'bank', existingExp);
             updateReceiptPreviewUI();
             modal.classList.remove('hidden');
         }
@@ -2209,14 +2828,14 @@
                     return `
                         <div class="p-3 rounded-xl bg-ios-bg dark:bg-zinc-800/80 space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="font-bold text-xs">${trip.groupMode === 'individual' ? f.headName : `${f.title} (${f.headName})`}</span>
-                                <span id="fam-equal-Rollup-${f.id}" class="text-xs font-extrabold text-ios-blue">₹0</span>
+                                <span class="font-bold text-xs">${trip.groupMode === 'individual' ? f.headName : `${esc(f.title)} (${esc(f.headName)})`}</span>
+                                <span id="fam-equal-Rollup-${esc(f.id)}" class="text-xs font-extrabold text-ios-blue">₹0</span>
                             </div>
                             <div class="flex flex-wrap gap-2">
                                 ${famMembers.map(m => `
                                     <label class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 border border-ios-border dark:border-ios-darkBorder text-xs cursor-pointer select-none">
-                                        <input type="checkbox" class="exp-member-checkbox accent-ios-blue" value="${m.id}" data-family-id="${f.id}" ${selectedSet.has(m.id) ? 'checked' : ''} onchange="updateExpenseSplitPreview()">
-                                        <span>${m.name}</span>
+                                        <input type="checkbox" class="exp-member-checkbox accent-ios-blue" value="${esc(m.id)}" data-family-id="${esc(f.id)}" ${selectedSet.has(m.id) ? 'checked' : ''} onchange="updateExpenseSplitPreview()">
+                                        <span>${esc(m.name)}</span>
                                     </label>
                                 `).join('')}
                             </div>
@@ -2242,11 +2861,11 @@
                     return `
                         <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-ios-bg dark:bg-zinc-800/80">
                             <div>
-                                <div class="font-bold text-xs">${f.headName}</div>
-                                <div class="text-[10px] text-ios-gray">${f.title}</div>
+                                <div class="font-bold text-xs">${esc(f.headName)}</div>
+                                <div class="text-[10px] text-ios-gray">${esc(f.title)}</div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="number" min="0" step="any" data-family-id="${f.id}" value="${defaultVal}" oninput="updateExpenseSplitPreview()" class="exp-custom-share-input ios-input w-28 text-right font-bold bg-white dark:bg-zinc-900">
+                                <input type="number" min="0" step="any" data-family-id="${esc(f.id)}" value="${defaultVal}" oninput="updateExpenseSplitPreview()" class="exp-custom-share-input ios-input w-28 text-right font-bold bg-white dark:bg-zinc-900">
                                 <span class="text-xs font-bold w-6">${mode === 'exact' ? '₹' : '%'}</span>
                             </div>
                         </div>
@@ -2255,6 +2874,46 @@
             }
 
             updateExpenseSplitPreview();
+        }
+
+        function setExpensePaymentMode(mode, existingExp = null) {
+            currentExpensePaymentMode = ['cash','bank','split'].includes(mode) ? mode : 'bank';
+            ['cash','bank','split'].forEach(m => document.getElementById(`payment-btn-${m}`).classList.toggle('active', m === currentExpensePaymentMode));
+            document.getElementById('exp-payment-split-fields').classList.toggle('hidden', currentExpensePaymentMode !== 'split');
+            const amount = Math.round(Number(document.getElementById('exp-amount').value) || 0);
+            if (currentExpensePaymentMode === 'split') {
+                document.getElementById('exp-cash-portion').value = existingExp?.paymentSplit?.cash ?? '';
+                document.getElementById('exp-bank-portion').value = existingExp?.paymentSplit?.bank ?? '';
+                if (!existingExp && amount > 0) document.getElementById('exp-bank-portion').value = amount;
+            }
+            validatePaymentSplit();
+        }
+        function updatePaymentSplit(changed = null) {
+            const amount = Math.round(Number(document.getElementById('exp-amount').value) || 0);
+            const cashInput = document.getElementById('exp-cash-portion');
+            const bankInput = document.getElementById('exp-bank-portion');
+            if (currentExpensePaymentMode === 'split') {
+                if (changed === 'cash' && cashInput.value !== '') bankInput.value = amount - (Number(cashInput.value) || 0);
+                else if (changed === 'bank' && bankInput.value !== '') cashInput.value = amount - (Number(bankInput.value) || 0);
+                else if (changed === null && cashInput.value !== '') bankInput.value = amount - (Number(cashInput.value) || 0);
+            }
+            validatePaymentSplit();
+        }
+        function validatePaymentSplit() {
+            const total = Math.round(Number(document.getElementById('exp-amount').value) || 0);
+            const cashEl = document.getElementById('exp-cash-portion');
+            const bankEl = document.getElementById('exp-bank-portion');
+            const cash = Number(cashEl.value), bank = Number(bankEl.value);
+            const valid = currentExpensePaymentMode !== 'split' || (
+                total > 0 && cashEl.value !== '' && bankEl.value !== '' &&
+                Number.isInteger(cash) && Number.isInteger(bank) && cash >= 0 && bank >= 0 && cash + bank === total
+            );
+            const msg = document.getElementById('exp-payment-validation');
+            msg.innerText = `${formatINR(cash)} cash + ${formatINR(bank)} bank = ${formatINR(cash + bank)} ${valid ? '✓' : `✗ (bill ${formatINR(total)})`}`;
+            msg.className = `sm:col-span-2 text-xs font-bold ${valid ? 'text-ios-green' : 'text-ios-red'}`;
+            document.getElementById('btn-save-expense').disabled = !valid;
+            document.getElementById('btn-save-expense').classList.toggle('opacity-50', !valid);
+            return valid;
         }
 
         function toggleAllExpenseMembers(checked) {
@@ -2339,6 +2998,7 @@
 
         function saveExpenseFromModal(event) {
             event.preventDefault();
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const editId = document.getElementById('expense-edit-id').value;
             const title = document.getElementById('exp-title').value.trim();
@@ -2352,6 +3012,13 @@
                 return;
             }
 
+            if (!validatePaymentSplit()) {
+                showToast('Cash and Bank portions must total the exact bill amount.', 'error'); return;
+            }
+            const paymentMode = currentExpensePaymentMode;
+            const paymentSplit = paymentMode === 'split'
+                ? { cash: Number(document.getElementById('exp-cash-portion').value), bank: Number(document.getElementById('exp-bank-portion').value) }
+                : null;
             let selectedMemberIds = [];
             const familyShares = {};
             trip.families.forEach(f => { familyShares[f.id] = 0; });
@@ -2379,18 +3046,21 @@
             }
 
             const expObj = {
-                id: editId || ('exp_' + Date.now()),
+                id: editId || genId('exp'),
                 title,
                 amount,
                 category,
                 date,
                 paidBy,
+                paymentMode,
+                paymentSplit,
                 splitMode: currentExpenseSplitMode,
                 selectedMemberIds,
                 familyShares,
                 receiptData: currentExpenseReceiptData
             };
 
+            const previous = editId ? trip.expenses.find(e => e.id === editId) : null;
             if (editId) {
                 const idx = trip.expenses.findIndex(e => e.id === editId);
                 if (idx >= 0) trip.expenses[idx] = expObj;
@@ -2401,15 +3071,19 @@
             }
 
             recalculateExpenseSharesForIntegrity(trip);
+            reopenAffectedFamilies(trip, [...expenseAffectedFamilies(previous), ...expenseAffectedFamilies(expObj)]);
             saveState();
             closeExpenseModal();
             renderApp();
         }
 
         function deleteExpense(expId) {
+            if (!requireActiveTrip()) return;
             openConfirmModal('Delete Expense?', 'This bill will be removed and all family balances will automatically update.', () => {
                 const trip = getActiveTrip();
+                const removed = (trip.expenses || []).find(e => e.id === expId);
                 trip.expenses = (trip.expenses || []).filter(e => e.id !== expId);
+                reopenAffectedFamilies(trip, expenseAffectedFamilies(removed));
                 saveState();
                 renderApp();
                 showToast('Expense deleted.');
@@ -2417,13 +3091,14 @@
         }
 
         // --- 3. RENDER CASH POOL, ADVANCES & PEER TRANSFERS VIEW ---
-        function renderContributionsView(trip = getActiveTrip(), fin = computeTripFinancials(trip), managerName = '') {
+        function renderContributionsView(trip = getActiveTrip(), fin = computeTripFinancialsWithSettlements(trip), managerName = '') {
             if (!managerName) {
                 const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
                 managerName = mf ? mf.headName : 'Unassigned';
             }
 
             const totalPoolAndAdvSpent = fin.spentFromPool + fin.totalAdvanceUsed;
+            showManagerHoldings(trip, fin);
 
             document.getElementById('pool-manager-heading').innerText = `Managed by ${managerName}`;
             document.getElementById('pool-stat-deposits').innerText = formatINR(fin.grossPoolDeposits);
@@ -2438,7 +3113,7 @@
             const netCashEl = document.getElementById('pool-stat-net-cash');
             netCashEl.innerText = formatINR(fin.totalAvailablePoolCash);
             netCashEl.className = `text-lg sm:text-xl font-extrabold mt-0.5 ${fin.totalAvailablePoolCash >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
-            document.getElementById('pool-stat-net-cash-sub').innerText = `${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} w/ Members`;
+            document.getElementById('pool-stat-net-cash-sub').innerText = `${formatINR(fin.netPoolCashHeld)} Manager (cash + bank) + ${formatINR(fin.totalUnspentAdvances)} w/ Members`;
 
             // Per-Unit Cards
             const gridEl = document.getElementById('pool-family-cards-grid');
@@ -2447,12 +3122,12 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <div class="font-extrabold text-sm flex items-center gap-1.5">
-                                <span>${u.headName}</span>
+                                <span>${esc(u.headName)}</span>
                                 ${u.isManager ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold">👑 Manager</span>' : ''}
                             </div>
-                            <div class="text-[11px] text-ios-gray">${u.title} • ${u.memberCount} Pax</div>
+                            <div class="text-[11px] text-ios-gray">${esc(u.title)} • ${u.memberCount} Pax</div>
                         </div>
-                        <button onclick="openContributionModal('DEPOSIT', null, '${u.familyId}')" class="px-2.5 py-1 rounded-lg bg-ios-green/15 text-ios-green font-bold text-xs hover:bg-ios-green/25 transition">+ Deposit</button>
+                        <button onclick="openContributionModal('DEPOSIT', null, ${safeJsArg(u.familyId)})" class="px-2.5 py-1 rounded-lg bg-ios-green/15 text-ios-green font-bold text-xs hover:bg-ios-green/25 transition">+ Deposit</button>
                     </div>
                     <div class="grid grid-cols-3 gap-2 pt-2 border-t border-ios-border dark:border-ios-darkBorder text-xs">
                         <div>
@@ -2483,20 +3158,50 @@
                 </div>
             `).join('');
 
+            const famFilter = document.getElementById('pool-family-filter');
+            const selectedFam = famFilter.value || 'ALL';
+            famFilter.innerHTML = '<option value="ALL">All Families / Accounts</option>' +
+                trip.families.map(f => `<option value="${esc(f.id)}">${esc(f.title)} (${esc(f.headName)})</option>`).join('');
+            if ([...famFilter.options].some(o => o.value === selectedFam)) famFilter.value = selectedFam;
+            document.getElementById('pool-sort-select').value = activeSortContributions;
             // Transactions Ledger List
             const ledgerEl = document.getElementById('contributions-ledger-list');
-            const list = trip.contributions || [];
+            const ledgerRecords = [
+                ...(trip.contributions || []),
+                ...(trip.liquidityTransfers || []).map(t => ({...t, sourceLiquidity: true,
+                    method: t.direction === 'BANK_TO_CASH' ? 'Bank → Cash' : 'Cash → Bank'})),
+                ...(trip.expenses || []).filter(exp => exp.paidBy !== 'POOL').map(exp => ({
+                    id: exp.id, type: 'OOP', familyId: exp.paidBy, toFamilyId: null,
+                    amount: exp.amount, date: exp.date, method: paymentModeLabel(exp),
+                    note: exp.title, sourceExpense: true
+                }))
+            ];
+            const list = ledgerRecords.filter(c => famFilter.value === 'ALL' ||
+                c.familyId === famFilter.value || c.toFamilyId === famFilter.value);
+            const index = new Map(ledgerRecords.map((c,i) => [c,i]));
+            const familyName = c => trip.families.find(f => f.id === c.familyId)?.title || '';
+            const typeOrder = { DEPOSIT: 0, OOP: 1, ADVANCE: 2, SETTLEMENT_IN: 3, SETTLEMENT_OUT: 4, PEER: 5, MODE_TRANSFER: 6 };
+            list.sort((a,b) => {
+                switch (activeSortContributions) {
+                    case 'date-asc': return (a.date || '').localeCompare(b.date || '') || index.get(a)-index.get(b);
+                    case 'amount-desc': return Number(b.amount)-Number(a.amount) || index.get(b)-index.get(a);
+                    case 'amount-asc': return Number(a.amount)-Number(b.amount) || index.get(b)-index.get(a);
+                    case 'type': return (typeOrder[a.type || 'DEPOSIT'] ?? 9) - (typeOrder[b.type || 'DEPOSIT'] ?? 9) || index.get(b)-index.get(a);
+                    case 'family': return familyName(a).localeCompare(familyName(b)) || index.get(b)-index.get(a);
+                    default: return (b.date || '').localeCompare(a.date || '') || index.get(b)-index.get(a);
+                }
+            });
             if (list.length === 0) {
                 ledgerEl.innerHTML = `<p class="text-xs text-ios-gray text-center py-6">No pool deposits, advances, or transfers recorded yet.</p>`;
                 return;
             }
 
-            ledgerEl.innerHTML = list.slice().reverse().map(c => {
+            ledgerEl.innerHTML = list.map(c => {
                 const cType = c.type || 'DEPOSIT';
                 const fam1 = trip.families.find(f => f.id === c.familyId);
                 const fam2 = trip.families.find(f => f.id === c.toFamilyId);
-                const name1 = fam1 ? fam1.headName : 'Member';
-                const name2 = fam2 ? fam2.headName : 'Member';
+                const name1 = esc(fam1 ? fam1.headName : 'Member');
+                const name2 = esc(fam2 ? fam2.headName : 'Member');
 
                 let badgeHtml = '';
                 let titleHtml = '';
@@ -2504,12 +3209,28 @@
 
                 if (cType === 'DEPOSIT') {
                     badgeHtml = `<span class="px-2 py-0.5 rounded bg-ios-green/15 text-ios-green font-bold text-[10px]">📥 Pool Deposit</span>`;
-                    titleHtml = `${name1} → Central Pool (${managerName})`;
+                    titleHtml = `${name1} → Central Pool (${esc(managerName)})`;
                     amountColor = 'text-ios-green';
+                } else if (cType === 'OOP') {
+                    badgeHtml = `<span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 font-bold text-[10px]">💳 Out-of-Pocket Expense</span>`;
+                    titleHtml = `${name1} → Vendor (OOP)`;
+                    amountColor = 'text-purple-600 dark:text-purple-400';
                 } else if (cType === 'ADVANCE') {
                     badgeHtml = `<span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold text-[10px]">📤 Pool Advance Sent</span>`;
-                    titleHtml = `Central Pool (${managerName}) → ${name1}`;
+                    titleHtml = `Central Pool (${esc(managerName)}) → ${name1}`;
                     amountColor = 'text-amber-600 dark:text-amber-400';
+                } else if (cType === 'SETTLEMENT_IN') {
+                    badgeHtml = `<span class="px-2 py-0.5 rounded bg-ios-green/15 text-ios-green font-bold text-[10px]">✅ Settlement Received</span>`;
+                    titleHtml = `${name1} → ${esc(managerName)} (final payment)`;
+                    amountColor = 'text-ios-green';
+                } else if (cType === 'SETTLEMENT_OUT') {
+                    badgeHtml = `<span class="px-2 py-0.5 rounded bg-ios-blue/15 text-ios-blue font-bold text-[10px]">💸 Refund Paid</span>`;
+                    titleHtml = `${esc(managerName)} → ${name1} (excess returned)`;
+                    amountColor = 'text-ios-blue';
+                } else if (cType === 'MODE_TRANSFER') {
+                    badgeHtml = `<span class="px-2 py-0.5 rounded bg-ios-indigo/15 text-ios-indigo font-bold text-[10px]">↔ Cash / Bank Transfer</span>`;
+                    titleHtml = esc(c.direction === 'BANK_TO_CASH' ? 'Bank withdrawn as cash' : 'Cash deposited into bank');
+                    amountColor = 'text-ios-indigo';
                 } else {
                     badgeHtml = `<span class="px-2 py-0.5 rounded bg-ios-indigo/15 text-ios-indigo font-bold text-[10px]">🔄 Member Transfer</span>`;
                     titleHtml = `${name1} → ${name2}`;
@@ -2524,19 +3245,19 @@
                                 <span class="font-bold text-xs sm:text-sm">${titleHtml}</span>
                             </div>
                             <div class="text-xs text-ios-gray flex items-center gap-2 flex-wrap">
-                                <span>📅 ${c.date}</span>
+                                <span>📅 ${esc(c.date)}</span>
                                 <span>•</span>
-                                <span>${c.method}</span>
-                                ${c.note ? `<span>• 📝 ${c.note}</span>` : ''}
+                                <span>${esc(c.method || '—')}${c.paymentSplit ? ` • Cash ${formatINR(c.paymentSplit.cash)} + Bank ${formatINR(c.paymentSplit.bank)}` : ''}</span>
+                                ${c.note ? `<span>• 📝 ${esc(c.note)}</span>` : ''}
                             </div>
                         </div>
                         <div class="flex items-center justify-between sm:justify-end gap-3">
                             <span class="font-extrabold text-base ${amountColor}">${formatINR(c.amount)}</span>
                             <div class="flex items-center gap-1">
-                                <button onclick="openContributionModal('${cType}', '${c.id}')" class="w-8 h-8 rounded-xl bg-white dark:bg-zinc-900 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
+                                ${!c.sourceLiquidity ? `<button onclick="${c.sourceExpense ? `openExpenseModal(${safeJsArg(c.id)})` : ['SETTLEMENT_IN','SETTLEMENT_OUT'].includes(cType) ? `openSettlementPaymentModal(${safeJsArg(c.familyId)}, ${safeJsArg(c.id)})` : `openContributionModal(${safeJsArg(cType)}, ${safeJsArg(c.id)})`}" class="w-8 h-8 rounded-xl bg-white dark:bg-zinc-900 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
                                     <i class="ph-bold ph-pencil-simple text-xs"></i>
-                                </button>
-                                <button onclick="deleteContribution('${c.id}')" class="w-8 h-8 rounded-xl bg-white dark:bg-zinc-900 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
+                                </button>` : ''}
+                                <button onclick="${c.sourceLiquidity ? `deleteLiquidityTransfer(${safeJsArg(c.id)})` : c.sourceExpense ? `deleteExpense(${safeJsArg(c.id)})` : `deleteContribution(${safeJsArg(c.id)})`}" class="w-8 h-8 rounded-xl bg-white dark:bg-zinc-900 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
                                     <i class="ph-bold ph-trash text-xs"></i>
                                 </button>
                             </div>
@@ -2577,11 +3298,12 @@
         }
 
         function openContributionModal(defaultType = 'DEPOSIT', editId = null, preselectFamilyId = null) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const unitSelect = document.getElementById('contrib-unit-id');
             const toUnitSelect = document.getElementById('contrib-to-unit-id');
 
-            const optionsHtml = trip.families.map(f => `<option value="${f.id}">${f.headName} (${f.title})</option>`).join('');
+            const optionsHtml = trip.families.map(f => `<option value="${esc(f.id)}">${esc(f.headName)} (${esc(f.title)})</option>`).join('');
             unitSelect.innerHTML = optionsHtml;
             toUnitSelect.innerHTML = optionsHtml;
             if (trip.families.length > 1) toUnitSelect.selectedIndex = 1;
@@ -2598,6 +3320,8 @@
                 document.getElementById('contrib-method').value = c.method;
                 document.getElementById('contrib-date').value = c.date;
                 document.getElementById('contrib-note').value = c.note || '';
+                document.getElementById('contrib-cash-part').value = c.paymentSplit?.cash ?? '';
+                document.getElementById('contrib-bank-part').value = c.paymentSplit?.bank ?? '';
             } else {
                 document.getElementById('contrib-modal-title').innerText = 'Record Cash Pool / Transfer';
                 document.getElementById('contrib-edit-id').value = '';
@@ -2607,8 +3331,11 @@
                 document.getElementById('contrib-method').value = 'UPI / GPay';
                 document.getElementById('contrib-date').value = trip.startDate || new Date().toISOString().slice(0, 10);
                 document.getElementById('contrib-note').value = '';
+                document.getElementById('contrib-cash-part').value = '';
+                document.getElementById('contrib-bank-part').value = '';
             }
 
+            validateTransactionSplit();
             document.getElementById('contribution-modal').classList.remove('hidden');
         }
 
@@ -2618,6 +3345,7 @@
 
         function saveContributionFromModal(event) {
             event.preventDefault();
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const editId = document.getElementById('contrib-edit-id').value;
             const familyId = document.getElementById('contrib-unit-id').value;
@@ -2626,6 +3354,7 @@
             const method = document.getElementById('contrib-method').value;
             const date = document.getElementById('contrib-date').value;
             const note = document.getElementById('contrib-note').value.trim();
+            if (!validateTransactionSplit()) { showToast('Cash and bank portions must total the transaction amount.', 'error'); return; }
 
             if (amount <= 0) {
                 showToast('Enter a valid amount greater than ₹0.', 'error');
@@ -2637,16 +3366,21 @@
             }
 
             const record = {
-                id: editId || ('c_' + Date.now()),
+                id: editId || genId('c'),
                 type: currentContribType,
                 familyId,
                 toFamilyId,
                 amount,
                 method,
+                paymentSplit: method === 'Split (Cash + Bank)' ? {
+                    cash: Number(document.getElementById('contrib-cash-part').value),
+                    bank: Number(document.getElementById('contrib-bank-part').value)
+                } : null,
                 date,
                 note
             };
 
+            const previous = editId ? trip.contributions.find(c => c.id === editId) : null;
             if (editId) {
                 const idx = trip.contributions.findIndex(c => c.id === editId);
                 if (idx >= 0) trip.contributions[idx] = record;
@@ -2656,15 +3390,19 @@
                 showToast('Transaction recorded in ledger!');
             }
 
+            reopenAffectedFamilies(trip, [...contributionAffectedFamilies(previous), ...contributionAffectedFamilies(record)]);
             saveState();
             closeContributionModal();
             renderApp();
         }
 
         function deleteContribution(cId) {
+            if (!requireActiveTrip()) return;
             openConfirmModal('Delete Transaction?', 'This pool entry or advance will be removed from the ledger.', () => {
                 const trip = getActiveTrip();
+                const removed = (trip.contributions || []).find(c => c.id === cId);
                 trip.contributions = (trip.contributions || []).filter(c => c.id !== cId);
+                reopenAffectedFamilies(trip, contributionAffectedFamilies(removed));
                 saveState();
                 renderApp();
                 showToast('Entry deleted.');
@@ -2725,30 +3463,30 @@
                     <div class="ios-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="flex items-start gap-3.5">
                             <div class="px-3 py-2 rounded-2xl bg-ios-blue/10 text-ios-blue text-center shrink-0 min-w-[68px]">
-                                <div class="text-[10px] font-extrabold uppercase">Day ${item.day}</div>
-                                <div class="font-extrabold text-sm">${item.time || '09:00'}</div>
+                                <div class="text-[10px] font-extrabold uppercase">Day ${esc(item.day)}</div>
+                                <div class="font-extrabold text-sm">${esc(item.time || '09:00')}</div>
                             </div>
                             <div class="space-y-1">
                                 <div class="flex items-center gap-2 flex-wrap">
-                                    <h4 class="font-extrabold text-sm sm:text-base">${item.place}</h4>
-                                    <button onclick="cycleItineraryStatus('${item.id}')" title="Click to cycle status" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${statusBadgeMap[item.status] || statusBadgeMap.Planned} cursor-pointer">
-                                        ${item.status} ↻
+                                    <h4 class="font-extrabold text-sm sm:text-base">${esc(item.place)}</h4>
+                                    <button onclick="cycleItineraryStatus(${safeJsArg(item.id)})" ${isTripCompleted(trip) ? 'disabled' : ''} title="${isTripCompleted(trip) ? 'Read-only completed trip' : 'Click to cycle status'}" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${statusBadgeMap[item.status] || statusBadgeMap.Planned} cursor-pointer">
+                                        ${esc(item.status)} ${isTripCompleted(trip) ? '' : '↻'}
                                     </button>
                                 </div>
                                 <div class="text-xs text-ios-gray flex items-center gap-2 flex-wrap">
-                                    <span>📅 ${item.date}</span>
+                                    <span>📅 ${esc(item.date)}</span>
                                     <span>•</span>
-                                    <span>${item.category}</span>
+                                    <span>${esc(item.category)}</span>
                                     ${Number(item.cost) > 0 ? `<span>• Est. ${formatINR(item.cost)}</span>` : ''}
-                                    ${item.notes ? `<span>• 📍 ${item.notes}</span>` : ''}
+                                    ${item.notes ? `<span>• 📍 ${esc(item.notes)}</span>` : ''}
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-end gap-1.5 shrink-0">
-                            <button onclick="openItineraryModal('${item.id}')" class="w-8 h-8 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
+                            <button onclick="openItineraryModal(${safeJsArg(item.id)})" class="w-8 h-8 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white flex items-center justify-center transition">
                                 <i class="ph-bold ph-pencil-simple text-xs"></i>
                             </button>
-                            <button onclick="deleteItineraryItem('${item.id}')" class="w-8 h-8 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
+                            <button onclick="deleteItineraryItem(${safeJsArg(item.id)})" class="w-8 h-8 rounded-xl bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red flex items-center justify-center transition">
                                 <i class="ph-bold ph-trash text-xs"></i>
                             </button>
                         </div>
@@ -2760,7 +3498,7 @@
             const assigneeSelect = document.getElementById('checklist-new-assignee');
             if (assigneeSelect) {
                 assigneeSelect.innerHTML = `<option value="ALL">Everyone / Group</option>` +
-                    trip.families.map(f => `<option value="${f.id}">${f.headName}</option>`).join('');
+                    trip.families.map(f => `<option value="${esc(f.id)}">${esc(f.headName)}</option>`).join('');
             }
 
             const chkContainer = document.getElementById('checklist-items-container');
@@ -2773,13 +3511,13 @@
                     return `
                         <div class="ios-card p-3.5 flex items-center justify-between gap-3">
                             <label class="flex items-center gap-3 cursor-pointer flex-1">
-                                <input type="checkbox" ${chk.done ? 'checked' : ''} onchange="toggleChecklistItem('${chk.id}')" class="w-4 h-4 accent-ios-blue rounded">
+                                <input type="checkbox" ${chk.done ? 'checked' : ''} ${isTripCompleted(trip) ? 'disabled' : ''} onchange="toggleChecklistItem(${safeJsArg(chk.id)})" class="w-4 h-4 accent-ios-blue rounded">
                                 <div>
-                                    <div class="text-xs sm:text-sm font-bold ${chk.done ? 'line-through text-ios-gray' : ''}">${chk.title}</div>
-                                    <div class="text-[11px] text-ios-gray">${chk.category} • Assigned to: <strong>${assigneeName}</strong></div>
+                                    <div class="text-xs sm:text-sm font-bold ${chk.done ? 'line-through text-ios-gray' : ''}">${esc(chk.title)}</div>
+                                    <div class="text-[11px] text-ios-gray">${esc(chk.category)} • Assigned to: <strong>${esc(assigneeName)}</strong></div>
                                 </div>
                             </label>
-                            <button onclick="deleteChecklistItem('${chk.id}')" class="w-8 h-8 rounded-xl text-ios-red hover:bg-ios-red/10 flex items-center justify-center">
+                            <button onclick="deleteChecklistItem(${safeJsArg(chk.id)})" class="w-8 h-8 rounded-xl text-ios-red hover:bg-ios-red/10 flex items-center justify-center">
                                 <i class="ph-bold ph-trash text-xs"></i>
                             </button>
                         </div>
@@ -2789,6 +3527,7 @@
         }
 
         function openItineraryModal(editId = null) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             if (editId) {
                 const item = trip.itinerary.find(i => i.id === editId);
@@ -2823,11 +3562,12 @@
         }
 
         function saveItineraryFromModal(event) {
+            if (!requireActiveTrip()) return;
             event.preventDefault();
             const trip = getActiveTrip();
             const editId = document.getElementById('itin-edit-id').value;
             const obj = {
-                id: editId || ('it_' + Date.now()),
+                id: editId || (genId('it')),
                 day: Number(document.getElementById('itin-day').value) || 1,
                 date: document.getElementById('itin-date').value,
                 time: document.getElementById('itin-time').value,
@@ -2852,6 +3592,7 @@
         }
 
         function cycleItineraryStatus(id) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const item = trip.itinerary.find(i => i.id === id);
             if (!item) return;
@@ -2862,6 +3603,7 @@
         }
 
         function deleteItineraryItem(id) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             trip.itinerary = trip.itinerary.filter(i => i.id !== id);
             saveState();
@@ -2870,12 +3612,13 @@
         }
 
         function handleAddChecklistItem(event) {
+            if (!requireActiveTrip()) return;
             event.preventDefault();
             const trip = getActiveTrip();
             const title = document.getElementById('checklist-new-title').value.trim();
             if (!title) return;
             trip.checklist.push({
-                id: 'chk_' + Date.now(),
+                id: genId('chk'),
                 title,
                 category: document.getElementById('checklist-new-category').value,
                 assigneeId: document.getElementById('checklist-new-assignee').value,
@@ -2888,6 +3631,7 @@
         }
 
         function toggleChecklistItem(id) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const item = trip.checklist.find(c => c.id === id);
             if (item) item.done = !item.done;
@@ -2896,6 +3640,7 @@
         }
 
         function deleteChecklistItem(id) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             trip.checklist = trip.checklist.filter(c => c.id !== id);
             saveState();
@@ -2903,7 +3648,7 @@
         }
 
         // --- 5. RENDER FINAL SETTLEMENT & EXCEL EXPORT ---
-        function renderSettlementView(trip = getActiveTrip(), fin = computeTripFinancials(trip), managerName = '') {
+        function renderSettlementView(trip = getActiveTrip(), fin = computeTripFinancialsWithSettlements(trip), managerName = '') {
             if (!managerName) {
                 const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
                 managerName = mf ? mf.headName : 'Unassigned';
@@ -2918,9 +3663,9 @@
 
             document.getElementById('settlement-proof-banner').innerHTML = `
                 <div>
-                    <span class="text-ios-gray block font-bold uppercase text-[10px]">1. Available Pool Cash (Manager + Adv)</span>
-                    <span class="text-base sm:text-lg font-extrabold text-amber-600 dark:text-amber-400">${formatINR(fin.totalAvailablePoolCash)}</span>
-                    <span class="block text-[10px] text-ios-gray mt-0.5">${formatINR(fin.netPoolCashHeld)} Manager + ${formatINR(fin.totalUnspentAdvances)} Unspent Adv</span>
+                    <span class="text-ios-gray block font-bold uppercase text-[10px]">1. Pool Held by Manager (Cash + Bank)</span>
+                    <span class="text-base sm:text-lg font-extrabold text-amber-600 dark:text-amber-400">${formatINR(fin.netPoolCashHeld)}</span>
+                    <span class="block text-[10px] text-ios-gray mt-0.5">Cash ${formatINR(getManagerLiquidity(trip).cash)} + Bank ${formatINR(getManagerLiquidity(trip).bank)} + Unclassified ${formatINR(getManagerLiquidity(trip).unknown)}</span>
                 </div>
                 <div>
                     <span class="text-ios-gray block font-bold uppercase text-[10px]">2. Total Collectables (Underpaid) (+)</span>
@@ -2930,7 +3675,7 @@
                 <div>
                     <span class="text-ios-gray block font-bold uppercase text-[10px]">3. Total Refunds Due (Overpaid) (=)</span>
                     <span class="text-base sm:text-lg font-extrabold text-ios-green">${formatINR(totalRefundToOverpaid)} ✅</span>
-                    <span class="block text-[10px] text-ios-gray mt-0.5">100% Zero-Variance Match</span>
+                    <span class="block text-[10px] text-ios-gray mt-0.5">Variance: ${formatINR(fin.netPoolCashHeld + totalOwedByUnderpaid - totalRefundToOverpaid)} (should be ₹0)</span>
                 </div>
             `;
 
@@ -2939,30 +3684,31 @@
             const instructions = [];
 
             fin.units.forEach(u => {
+                if (trip.families.find(f => f.id === u.familyId)?.accountClosed) return;
                 if (u.isManager) {
                     if (u.netBalance > 0) {
                         instructions.push({
-                            type: 'MANAGER_RETAIN',
-                            html: `👑 <strong>${u.headName} (Money Manager)</strong> retains <strong>${formatINR(u.netBalance)}</strong> from the settled Pool Vault as their personal/family net refund.`
+                            type: 'MANAGER_RETAIN', familyId: u.familyId, amount: u.netBalance,
+                            html: `👑 <strong>${esc(u.headName)} (Money Manager)</strong> may withdraw/retain <strong>${formatINR(u.netBalance)}</strong> as their own family's excess share.`
                         });
                     } else if (u.netBalance < 0) {
                         instructions.push({
-                            type: 'MANAGER_TOPUP',
-                            html: `👑 <strong>${u.headName} (Money Manager)</strong> adds <strong>${formatINR(Math.abs(u.netBalance))}</strong> into the Pool Vault to cover their own family's net deficit.`
+                            type: 'MANAGER_TOPUP', familyId: u.familyId, amount: Math.abs(u.netBalance),
+                            html: `👑 <strong>${esc(u.headName)} (Money Manager)</strong> contributes <strong>${formatINR(Math.abs(u.netBalance))}</strong> of personal funds to the pool.`
                         });
                     }
                 } else {
                     if (u.netBalance < 0) {
                         instructions.push({
-                            type: 'PAY_TO_MANAGER',
+                            type: 'PAY_TO_MANAGER', familyId: u.familyId,
                             amount: Math.abs(u.netBalance),
-                            html: `🔴 <strong>${u.headName}</strong> (${u.title}) pays <strong>${formatINR(Math.abs(u.netBalance))}</strong> → to <strong>${managerName} (Money Manager)</strong>`
+                            html: `🔴 <strong>${esc(u.headName)}</strong> (${esc(u.title)}) pays <strong>${formatINR(Math.abs(u.netBalance))}</strong> → to <strong>${esc(managerName)} (Money Manager)</strong>`
                         });
                     } else if (u.netBalance > 0) {
                         instructions.push({
-                            type: 'REFUND_FROM_MANAGER',
+                            type: 'REFUND_FROM_MANAGER', familyId: u.familyId,
                             amount: u.netBalance,
-                            html: `🟢 <strong>${managerName} (Money Manager)</strong> refunds <strong>${formatINR(u.netBalance)}</strong> → to <strong>${u.headName}</strong> (${u.title})`
+                            html: `🟢 <strong>${esc(managerName)} (Money Manager)</strong> refunds <strong>${formatINR(u.netBalance)}</strong> → to <strong>${esc(u.headName)}</strong> (${esc(u.title)})`
                         });
                     }
                 }
@@ -2973,7 +3719,8 @@
             } else {
                 instrEl.innerHTML = instructions.map(item => `
                     <div class="p-3.5 rounded-2xl bg-ios-bg dark:bg-zinc-800/70 border border-ios-border dark:border-ios-darkBorder text-xs sm:text-sm flex items-center justify-between">
-                        <span>${item.html}</span>
+                        <span>${item.html}${item.type === 'REFUND_FROM_MANAGER' && (fin.units.find(u => u.familyId === item.familyId)?.settlementRefunded || 0) > 0 ? `<span class="block text-[11px] text-ios-gray mt-1">Already refunded: ${formatINR(fin.units.find(u => u.familyId === item.familyId).settlementRefunded)}</span>` : ''}</span>
+                        <button type="button" data-trip-mutation onclick="openSettlementPaymentModal(${safeJsArg(item.familyId)})" class="shrink-0 ml-3 px-3 py-2 rounded-xl bg-ios-blue text-white text-xs font-bold">${['REFUND_FROM_MANAGER','MANAGER_RETAIN'].includes(item.type) ? 'Record Refund' : 'Record Received'}</button>
                     </div>
                 `).join('');
             }
@@ -2981,30 +3728,43 @@
             // Full Accounting Balance Sheet Table
             const tbody = document.getElementById('settlement-table-tbody');
             tbody.innerHTML = fin.units.map(u => {
+                const family = trip.families.find(f => f.id === u.familyId);
+                const closed = Boolean(family?.accountClosed);
+                const canClose = Math.abs(u.netBalance) <= 1 && !isTripCompleted(trip);
+                const closeButton = closed
+                    ? (!isTripCompleted(trip) ? `<button type="button" onclick="reopenFamilyAccount(${safeJsArg(u.familyId)})" class="audit-action audit-action-reopen">Reopen Account</button>` : '')
+                    : (canClose ? `<button type="button" onclick="closeFamilyAccount(${safeJsArg(u.familyId)})" class="audit-action audit-action-close">Close Account</button>` : '');
                 const netAdvPeer = u.peerSent - u.advancesReceived - u.peerReceived;
-                const statusPill = u.netBalance > 0
-                    ? `<span class="px-2 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-extrabold">Gets +${formatINR(u.netBalance)}</span>`
+                const statusPill = closed
+                    ? '<span class="audit-status audit-status-closed">✓ Account Closed</span>'
+                    : u.netBalance > 0
+                    ? `<span class="audit-status audit-status-positive">Gets +${formatINR(u.netBalance)}</span>`
                     : u.netBalance < 0
-                    ? `<span class="px-2 py-1 rounded-lg bg-ios-red/15 text-ios-red font-extrabold">Owes ${formatINR(Math.abs(u.netBalance))}</span>`
-                    : `<span class="px-2 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-700 text-ios-gray font-bold">Settled (₹0)</span>`;
+                    ? `<span class="audit-status audit-status-negative">Owes ${formatINR(Math.abs(u.netBalance))}</span>`
+                    : '<span class="audit-status audit-status-zero">Settled (₹0)</span>';
 
                 return `
-                    <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition">
-                        <td class="py-3 pr-2">
-                            <div class="font-bold">${u.headName} ${u.isManager ? '👑' : ''}</div>
-                            <div class="text-[11px] text-ios-gray">${u.title}</div>
+                    <tr class="transition ${closed ? 'opacity-70' : ''}">
+                        <td class="audit-family">
+                            <div class="audit-family-name">${esc(u.headName)} ${u.isManager ? '<span title="Money Manager" aria-label="Money Manager">👑</span>' : ''}</div>
+                            <div class="audit-family-title">${esc(u.title)}</div>
+                            ${closed ? '<span class="audit-family-closed">✓ Settled and locked</span>' : ''}
                         </td>
-                        <td class="py-3 px-2 text-center font-semibold">${u.memberCount}</td>
-                        <td class="py-3 px-2 text-right text-ios-green font-semibold">${formatINR(u.poolDeposits)}</td>
-                        <td class="py-3 px-2 text-right text-purple-600 dark:text-purple-400 font-semibold">${formatINR(u.oopPaid)}</td>
-                        <td class="py-3 px-2 text-right text-amber-600 dark:text-amber-400 font-semibold">${netAdvPeer >= 0 ? '+' : ''}${formatINR(netAdvPeer)}</td>
-                        <td class="py-3 px-2 text-right font-extrabold">${formatINR(u.netCredit)}</td>
-                        <td class="py-3 px-2 text-right font-extrabold text-ios-blue">${formatINR(u.consumed)}</td>
-                        <td class="py-3 px-2 text-right">${statusPill}</td>
-                        <td class="py-3 pl-2 text-right">
-                            <button onclick="openUnitPassbookModal('${u.familyId}')" class="px-2.5 py-1.5 rounded-xl bg-ios-blue/10 hover:bg-ios-blue hover:text-white text-ios-blue font-bold text-xs inline-flex items-center gap-1 transition">
-                                <i class="ph-bold ph-list-Checks"></i> Particulars
-                            </button>
+                        <td class="text-center font-semibold">${u.memberCount}</td>
+                        <td class="text-right text-ios-green font-semibold">${formatINR(u.poolDeposits)}</td>
+                        <td class="text-right text-purple-600 dark:text-purple-400 font-semibold">${formatINR(u.oopPaid)}</td>
+                        <td class="text-right text-amber-600 dark:text-amber-400 font-semibold">${netAdvPeer >= 0 ? '+' : ''}${formatINR(netAdvPeer)}</td>
+                        <td class="text-right font-semibold">${formatINR((u.settlementReceived || 0) - (u.settlementRefunded || 0))}</td>
+                        <td class="text-right font-extrabold">${formatINR(u.netCredit)}</td>
+                        <td class="text-right font-extrabold text-ios-blue">${formatINR(u.consumed)}</td>
+                        <td class="text-right">${statusPill}</td>
+                        <td class="text-right">
+                            <div class="audit-row-actions">
+                                <button type="button" onclick="openUnitPassbookModal(${safeJsArg(u.familyId)})" class="audit-action audit-action-details">
+                                    <i class="ph-bold ph-list-checks" aria-hidden="true"></i> Particulars
+                                </button>
+                                ${closeButton || '<span class="audit-action-placeholder" aria-hidden="true"></span>'}
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -3019,10 +3779,11 @@
                     <td class="py-3 px-2 text-right">${formatINR(fin.grossPoolDeposits)}</td>
                     <td class="py-3 px-2 text-right">${formatINR(fin.spentOutOfPocket)}</td>
                     <td class="py-3 px-2 text-right">-${formatINR(fin.poolAdvancesSent)}</td>
+                    <td class="py-3 px-2 text-right">${formatINR(fin.settlementCollected - fin.settlementRefunded)}</td>
                     <td class="py-3 px-2 text-right">${formatINR(totalCreditSum)}</td>
                     <td class="py-3 px-2 text-right text-ios-blue">${formatINR(totalConsumedSum)}</td>
-                    <td class="py-3 px-2 text-right">Pool Cash: ${formatINR(fin.netPoolCashHeld)}</td>
-                    <td class="py-3 pl-2 text-right"></td>
+                    <td class="text-right font-bold">Pool Held: ${formatINR(fin.netPoolCashHeld)}</td>
+                    <td class="text-right"></td>
                 </tr>
             `;
 
@@ -3072,7 +3833,9 @@
                     paidByLabel,
                     basisLabel,
                     includedNames,
-                    shareAmt
+                    shareAmt,
+                    paymentLabel: paymentModeLabel(exp),
+                    paymentMode: exp.paymentMode || null
                 });
             });
 
@@ -3102,6 +3865,18 @@
                         sign: '-',
                         amount: amt,
                         colorClass: 'text-amber-600 dark:text-amber-400'
+                    });
+                } else if ((cType === 'SETTLEMENT_IN' || cType === 'SETTLEMENT_OUT') && c.familyId === unit.familyId) {
+                    const incoming = cType === 'SETTLEMENT_IN';
+                    creditRows.push({
+                        date: c.date,
+                        typeBadge: incoming ? '✅ Final Settlement Paid' : '💸 Excess Refunded',
+                        badgeClass: incoming ? 'bg-ios-green/15 text-ios-green' : 'bg-ios-blue/15 text-ios-blue',
+                        particulars: c.note || (incoming ? 'Money paid to Manager to settle deficit' : 'Money received back from Manager'),
+                        method: c.method,
+                        sign: incoming ? '+' : '-',
+                        amount: amt,
+                        colorClass: incoming ? 'text-ios-green' : 'text-ios-blue'
                     });
                 } else if (cType === 'PEER' && c.familyId === unit.familyId) {
                     const toFam = trip.families.find(f => f.id === c.toFamilyId);
@@ -3138,7 +3913,7 @@
                         typeBadge: '💳 Out-of-Pocket Bill Paid',
                         badgeClass: 'bg-purple-500/15 text-purple-600 dark:text-purple-400',
                         particulars: `Paid group bill: "${exp.title}" (${exp.category})`,
-                        method: 'Direct Vendor Payment',
+                        method: paymentModeLabel(exp),
                         sign: '+',
                         amount: Math.round(Number(exp.amount) || 0),
                         colorClass: 'text-purple-600 dark:text-purple-400'
@@ -3164,9 +3939,9 @@
             const managerName = mf ? mf.headName : 'Money Manager';
 
             const statusBanner = unit.netBalance > 0
-                ? `<div class="px-3.5 py-2 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs sm:text-sm">🟢 Refund Receivable from ${managerName}: +${formatINR(unit.netBalance)}</div>`
+                ? `<div class="px-3.5 py-2 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs sm:text-sm">🟢 Refund Receivable from ${esc(managerName)}: +${formatINR(unit.netBalance)}</div>`
                 : unit.netBalance < 0
-                ? `<div class="px-3.5 py-2 rounded-xl bg-ios-red/15 text-ios-red font-extrabold text-xs sm:text-sm">🔴 Final Payable to ${managerName}: ${formatINR(Math.abs(unit.netBalance))}</div>`
+                ? `<div class="px-3.5 py-2 rounded-xl bg-ios-red/15 text-ios-red font-extrabold text-xs sm:text-sm">🔴 Final Payable to ${esc(managerName)}: ${formatINR(Math.abs(unit.netBalance))}</div>`
                 : `<div class="px-3.5 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 text-ios-gray font-extrabold text-xs sm:text-sm">⚪ Fully Settled (₹0 Balance)</div>`;
 
             return `
@@ -3174,16 +3949,16 @@
                 <div class="p-4 rounded-2xl bg-ios-bg dark:bg-zinc-800/80 border border-ios-border dark:border-ios-darkBorder flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div>
                         <div class="flex items-center gap-2 flex-wrap">
-                            <h4 class="font-extrabold text-base">${unit.headName}</h4>
-                            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">${unit.title} (${unit.memberCount} Pax)</span>
+                            <h4 class="font-extrabold text-base">${esc(unit.headName)}</h4>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">${esc(unit.title)} (${unit.memberCount} Pax)</span>
                             ${unit.isManager ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400">👑 Money Manager</span>' : ''}
                         </div>
-                        <p class="text-xs text-ios-gray mt-1">Members: ${famMembers.map(m => `${m.name} (${m.age})`).join(', ') || 'None'}</p>
+                        <p class="text-xs text-ios-gray mt-1">Members: ${famMembers.map(m => `${esc(m.name)} (${esc(m.age)})`).join(', ') || 'None'}</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
                         ${statusBanner}
-                        <button type="button" onclick="copyUnitPassbookWhatsApp('${unit.familyId}')" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
-                            <i class="ph-fill ph-whatsapp-logo text-sm"></i> Copy ${unit.headName.split(' ')[0]}'s Passbook
+                        <button type="button" onclick="copyUnitPassbookWhatsApp(${safeJsArg(unit.familyId)})" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+                            <i class="ph-fill ph-whatsapp-logo text-sm"></i> Copy ${esc(unit.headName.split(' ')[0])}'s Passbook
                         </button>
                     </div>
                 </div>
@@ -3193,7 +3968,7 @@
                     <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/60">
                         <span class="text-[10px] font-bold uppercase text-ios-gray block">A. Total Net Credit (Paid In)</span>
                         <span class="text-lg font-extrabold text-ios-green">${formatINR(unit.netCredit)}</span>
-                        <span class="block text-[11px] text-ios-gray mt-0.5">Pool: ${formatINR(unit.poolDeposits)} | OOP: ${formatINR(unit.oopPaid)} | Adv: -${formatINR(unit.advancesReceived)}</span>
+                        <span class="block text-[11px] text-ios-gray mt-0.5">Pool: ${formatINR(unit.poolDeposits)} | OOP: ${formatINR(unit.oopPaid)} | Adv: -${formatINR(unit.advancesReceived)} | Settled: ${formatINR((unit.settlementReceived || 0) - (unit.settlementRefunded || 0))}</span>
                     </div>
                     <div class="p-3.5 rounded-2xl border border-ios-border dark:border-ios-darkBorder bg-white dark:bg-zinc-900/60">
                         <span class="text-[10px] font-bold uppercase text-ios-gray block">B. Total Consumed (${expenseRows.length} Bills)</span>
@@ -3230,14 +4005,14 @@
                                     <tr><td colspan="6" class="py-5 text-center text-ios-gray">No expenses charged to this account yet.</td></tr>
                                 ` : expenseRows.map(r => `
                                     <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/30">
-                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${r.date}</td>
+                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${esc(r.date)}</td>
                                         <td class="py-2.5 px-3">
-                                            <div class="font-bold">${r.title}</div>
-                                            <div class="text-[10px] text-ios-gray">${r.category}${r.includedNames.length > 0 ? ` • Members: ${r.includedNames.join(', ')}` : ''}</div>
+                                            <div class="font-bold">${esc(r.title)}</div>
+                                            <div class="text-[10px] text-ios-gray">${esc(r.category)}${r.includedNames.length > 0 ? ` • Members: ${r.includedNames.map(esc).join(', ')}` : ''}</div>
                                         </td>
                                         <td class="py-2.5 px-3 text-right font-semibold">${formatINR(r.totalBill)}</td>
-                                        <td class="py-2.5 px-3 text-[11px]">${r.paidByLabel}</td>
-                                        <td class="py-2.5 px-3 text-[11px] font-medium">${r.basisLabel}</td>
+                                        <td class="py-2.5 px-3 text-[11px]">${esc(r.paidByLabel)}<span class="block text-[10px] text-ios-gray">${esc(r.paymentLabel)}</span></td>
+                                        <td class="py-2.5 px-3 text-[11px] font-medium">${esc(r.basisLabel)}</td>
                                         <td class="py-2.5 px-3 text-right font-extrabold text-ios-blue">${formatINR(r.shareAmt)}</td>
                                     </tr>
                                 `).join('')}
@@ -3268,10 +4043,10 @@
                                     <tr><td colspan="5" class="py-5 text-center text-ios-gray">No deposits, out-of-pocket payments, or advances recorded for this account yet.</td></tr>
                                 ` : creditRows.map(c => `
                                     <tr class="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/30">
-                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${c.date}</td>
-                                        <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${c.badgeClass}">${c.typeBadge}</span></td>
-                                        <td class="py-2.5 px-3 font-semibold">${c.particulars}</td>
-                                        <td class="py-2.5 px-3 text-ios-gray">${c.method}</td>
+                                        <td class="py-2.5 px-3 whitespace-nowrap text-ios-gray">${esc(c.date)}</td>
+                                        <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${c.badgeClass}">${esc(c.typeBadge)}</span></td>
+                                        <td class="py-2.5 px-3 font-semibold">${esc(c.particulars)}</td>
+                                        <td class="py-2.5 px-3 text-ios-gray">${esc(c.method)}</td>
                                         <td class="py-2.5 px-3 text-right font-extrabold ${c.colorClass}">${c.sign}${formatINR(c.amount)}</td>
                                     </tr>
                                 `).join('')}
@@ -3282,7 +4057,7 @@
             `;
         }
 
-        function renderSettlementPassbookSection(trip = getActiveTrip(), fin = computeTripFinancials(trip)) {
+        function renderSettlementPassbookSection(trip = getActiveTrip(), fin = computeTripFinancialsWithSettlements(trip)) {
             if (!fin.units || fin.units.length === 0) return;
             if (!selectedPassbookFamilyId || !fin.units.some(u => u.familyId === selectedPassbookFamilyId)) {
                 selectedPassbookFamilyId = fin.units[0].familyId;
@@ -3293,8 +4068,8 @@
                 pillsEl.innerHTML = fin.units.map(u => {
                     const isAct = u.familyId === selectedPassbookFamilyId;
                     return `
-                        <button type="button" onclick="selectPassbookFamily('${u.familyId}')" class="px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-1.5 ${isAct ? 'bg-ios-blue text-white shadow-sm' : 'bg-ios-bg dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200'}">
-                            <span>${u.headName}</span>
+                        <button type="button" onclick="selectPassbookFamily(${safeJsArg(u.familyId)})" class="px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-1.5 ${isAct ? 'bg-ios-blue text-white shadow-sm' : 'bg-ios-bg dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200'}">
+                            <span>${esc(u.headName)}</span>
                             <span class="text-[10px] px-1.5 py-0.5 rounded-full ${isAct ? 'bg-white/20 text-white' : 'bg-zinc-200 dark:bg-zinc-700 text-ios-gray'}">${u.memberCount} Pax</span>
                         </button>
                     `;
@@ -3314,7 +4089,7 @@
 
         function openUnitPassbookModal(familyId) {
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const unit = fin.units.find(u => u.familyId === familyId);
             if (!unit) return;
 
@@ -3350,7 +4125,7 @@
                 lines.push(`• No expenses charged.`);
             } else {
                 expenseRows.forEach((r, i) => {
-                    lines.push(`${i + 1}. [${r.date}] *${r.title}* (Total Bill ${formatINR(r.totalBill)}, ${r.basisLabel}) → *Your Share: ${formatINR(r.shareAmt)}*`);
+                    lines.push(`${i + 1}. [${r.date}] *${r.title}* (Total Bill ${formatINR(r.totalBill)}, ${r.basisLabel}, ${r.paymentLabel}) → *Your Share: ${formatINR(r.shareAmt)}*`);
                 });
             }
             lines.push(`👉 *Total Consumed (B): ${formatINR(unit.consumed)}*`);
@@ -3379,7 +4154,7 @@
 
         function copyUnitPassbookWhatsApp(familyId) {
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const text = formatUnitPassbookText(trip, fin, familyId);
             const unit = fin.units.find(u => u.familyId === familyId);
             copyTextSafe(text, `Copied ${unit ? unit.headName : 'Account'}'s itemized passbook!`);
@@ -3387,19 +4162,21 @@
 
         function copyAllPassbooksWhatsApp() {
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const blocks = fin.units.map(u => formatUnitPassbookText(trip, fin, u.familyId));
             copyTextSafe(blocks.join('\n\n════════════════════\n\n'), 'Copied all families’ itemized passbooks!');
         }
 
         function copyWhatsAppSettlementSummary() {
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const mf = trip.families.find(f => f.id === trip.moneyManagerFamilyId);
             const managerName = mf ? mf.headName : 'Money Manager';
 
             let lines = [
                 `📊 *${trip.name.toUpperCase()} — FINAL SETTLEMENT*`,
+                `💵 Cash with Manager: ${formatINR(getManagerLiquidity(trip).cash)} | 🏦 Bank with Manager: ${formatINR(getManagerLiquidity(trip).bank)}`,
+                `✅ Payments Received: ${formatINR(fin.settlementCollected)} | 💸 Refunds Paid: ${formatINR(fin.settlementRefunded)}`,
                 `📍 ${trip.destination} (${trip.members.length} Members)`,
                 `👑 Money Manager: *${managerName}*`,
                 `────────────────────`,
@@ -3428,7 +4205,7 @@
                 return;
             }
             const trip = getActiveTrip();
-            const fin = computeTripFinancials(trip);
+            const fin = computeTripFinancialsWithSettlements(trip);
             const wb = XLSX.utils.book_new();
 
             // Sheet 1: Settlement Balance Sheet
@@ -3442,6 +4219,8 @@
                 'Advances Received (₹)': u.advancesReceived,
                 'Peer Sent (₹)': u.peerSent,
                 'Peer Received (₹)': u.peerReceived,
+                'Settlement Received (₹)': u.settlementReceived || 0,
+                'Refunds Paid (₹)': u.settlementRefunded || 0,
                 'Total Net Credit (₹)': u.netCredit,
                 'Total Consumed Share (₹)': u.consumed,
                 'Net Balance (₹)': u.netBalance,
@@ -3458,7 +4237,10 @@
                     'Category': e.category,
                     'Total Amount (₹)': e.amount,
                     'Paid By': e.paidBy === 'POOL' ? 'Central Cash Pool' : (payerFam ? payerFam.headName : 'Member'),
-                    'Split Mode': e.splitMode
+                    'Split Mode': e.splitMode,
+                    'Payment Method': e.paymentMode || 'Unspecified (Legacy)',
+                    'Cash Portion (₹)': getPaymentPortions(e).cash,
+                    'Bank Portion (₹)': getPaymentPortions(e).bank
                 };
                 trip.families.forEach(f => {
                     row[`Share: ${f.headName} (₹)`] = e.familyShares?.[f.id] || 0;
@@ -3478,6 +4260,8 @@
                     'Secondary Account': f2 ? f2.headName : 'Central Pool',
                     'Amount (₹)': c.amount,
                     'Method': c.method,
+                    'Cash Portion (₹)': getTransactionPortions(c).cash,
+                    'Bank Portion (₹)': getTransactionPortions(c).bank,
                     'Notes': c.note || ''
                 };
             });
@@ -3495,7 +4279,7 @@
                     'Age': m.age,
                     'Gender': m.gender,
                     'Phone': m.phone,
-                    'Aadhaar / ID': m.aadhaar
+                    'Aadhaar / ID': formatAadhaarDisplay(m.aadhaar, true)
                 };
             });
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet4Data), '4_Booking_Directory');
@@ -3513,7 +4297,7 @@
                         'Date': r.date,
                         'Particulars': `${r.title} (${r.category})`,
                         'Total Group Bill (₹)': r.totalBill,
-                        'Basis / Payment Mode': `${r.basisLabel} | ${r.paidByLabel}`,
+                        'Basis / Payment Mode': `${r.basisLabel} | ${r.paidByLabel} | ${r.paymentLabel}`,
                         'Credit (+) (₹)': 0,
                         'Consumed Share (-) (₹)': r.shareAmt
                     });
@@ -3545,9 +4329,23 @@
             });
             XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet5Data), '5_Family_Passbooks');
 
+            const liquidity = getManagerLiquidity(trip);
+            const sheet6Data = [
+                { 'Balance Type': 'Cash with Manager', 'Amount (₹)': liquidity.cash },
+                { 'Balance Type': 'Bank / UPI with Manager', 'Amount (₹)': liquidity.bank },
+                { 'Balance Type': 'Unclassified (legacy entries)', 'Amount (₹)': liquidity.unknown },
+                { 'Balance Type': 'Total with Manager', 'Amount (₹)': liquidity.total },
+                { 'Balance Type': 'Unspent Advances with Members', 'Amount (₹)': fin.totalUnspentAdvances },
+                { 'Balance Type': 'Total Available Pool', 'Amount (₹)': fin.totalAvailablePoolCash }
+            ];
+            (trip.liquidityTransfers || []).forEach(t => sheet6Data.push({
+                'Balance Type': t.direction === 'BANK_TO_CASH' ? 'Bank → Cash Transfer' : 'Cash → Bank Transfer',
+                'Amount (₹)': t.amount, 'Date': t.date, 'Notes': t.note || ''
+            }));
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sheet6Data), '6_Cash_Bank_Balances');
             const safeFileName = trip.name.replace(/[^a-z0-9]/gi, '_') + '_Balance_Sheet.xlsx';
             XLSX.writeFile(wb, safeFileName);
-            showToast('5-Sheet Excel Balance Sheet & Passbooks downloaded!');
+            showToast('6-Sheet Excel Balance Sheet & Passbooks downloaded!');
         }
 
         // --- 6. RENDER BOOKING DIRECTORY & ROSTER MANAGER ---
@@ -3562,14 +4360,14 @@
             renderDirectoryView();
         }
 
-        function formatAadhaarDisplay(raw) {
+        function formatAadhaarDisplay(raw, forceMask = false) {
             if (!raw || raw === '—') return '—';
-            if (showFullAadhaar) return raw;
-            const digits = raw.replace(/\s+/g, '');
+            if (showFullAadhaar && !forceMask) return raw;
+            const digits = String(raw).replace(/\D/g, '');
             if (digits.length >= 4) {
-                return `XXXX XXXX ${digits.slice(-4)}`;
+                return `XXXX-XXXX-${digits.slice(-4)}`;
             }
-            return raw;
+            return '—';
         }
 
         function renderDirectoryView(trip = getActiveTrip()) {
@@ -3578,7 +4376,7 @@
             famFilterEl.innerHTML = `<option value="ALL">All Groups (${trip.members.length} Members)</option>` +
                 trip.families.map(f => {
                     const cnt = trip.members.filter(m => m.familyId === f.id).length;
-                    return `<option value="${f.id}">${f.title} (${cnt})</option>`;
+                    return `<option value="${esc(f.id)}">${esc(f.title)} (${cnt}) ${f.accountClosed ? '✅ Settled' : ''}</option>`;
                 }).join('');
             if ([...famFilterEl.options].some(o => o.value === currentFilter)) {
                 famFilterEl.value = currentFilter;
@@ -3607,18 +4405,18 @@
                         <td class="py-3 px-4 font-bold text-ios-gray">${idx + 1}</td>
                         <td class="py-3 px-3 font-extrabold">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                <span>${m.name}</span>
+                                <span>${esc(m.name)}</span>
                                 ${isHandler && trip.groupMode === 'family' ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">💳 Manages Family Txns</span>' : ''}
                             </div>
                         </td>
-                        <td class="py-3 px-3 text-xs">${fam ? fam.title : '—'}</td>
-                        <td class="py-3 px-3 font-semibold">${m.age} yrs • ${m.gender}</td>
-                        <td class="py-3 px-3 font-mono text-xs">${m.phone || '—'}</td>
-                        <td class="py-3 px-3 font-mono text-xs font-bold tracking-wider">${formatAadhaarDisplay(m.aadhaar)}</td>
+                        <td class="py-3 px-3 text-xs">${esc(fam ? fam.title : '—')} ${fam?.accountClosed ? '<span class="text-ios-green text-[10px] font-bold">✅ Settled</span>' : ''}</td>
+                        <td class="py-3 px-3 font-semibold">${esc(m.age)} yrs • ${esc(m.gender)}</td>
+                        <td class="py-3 px-3 font-mono text-xs">${esc(m.phone || '—')}</td>
+                        <td class="py-3 px-3 font-mono text-xs font-bold tracking-wider">${esc(formatAadhaarDisplay(m.aadhaar))}</td>
                         <td class="py-3 px-4 text-right">
                             <div class="inline-flex items-center gap-1">
-                                <button onclick="openMemberEditModal('${m.id}')" class="px-2.5 py-1 rounded-lg bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white text-xs font-bold transition">Edit</button>
-                                <button onclick="deleteMember('${m.id}')" class="px-2 py-1 rounded-lg bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red text-xs font-bold transition">×</button>
+                                <button onclick="openMemberEditModal(${safeJsArg(m.id)})" class="px-2.5 py-1 rounded-lg bg-ios-bg dark:bg-zinc-800 hover:bg-ios-blue hover:text-white text-xs font-bold transition">Edit</button>
+                                <button onclick="deleteMember(${safeJsArg(m.id)})" class="px-2 py-1 rounded-lg bg-ios-bg dark:bg-zinc-800 hover:bg-ios-red hover:text-white text-ios-red text-xs font-bold transition">×</button>
                             </div>
                         </td>
                     </tr>
@@ -3633,15 +4431,19 @@
                 `────────────────────────────────`
             ];
             trip.members.forEach((m, i) => {
-                lines.push(`${i + 1}. *${m.name}* | Age: ${m.age} (${m.gender}) | Aadhaar: ${m.aadhaar || '—'} | Ph: ${m.phone || '—'}`);
+                lines.push(`${i + 1}. *${m.name}* | Age: ${m.age} (${m.gender}) | Aadhaar: ${formatAadhaarDisplay(m.aadhaar, true)} | Ph: ${m.phone || '—'}`);
             });
             copyTextSafe(lines.join('\n'), 'Passenger booking list copied!');
         }
 
         function openMemberEditModal(memberId = null, prefillFamilyId = null) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            const member = memberId ? trip.members.find(m => m.id === memberId) : null;
+            if ((member && !requireOpenFamilyAccount(trip, member.familyId)) ||
+                (prefillFamilyId && !requireOpenFamilyAccount(trip, prefillFamilyId))) return;
             const famSelect = document.getElementById('mem-family-id');
-            famSelect.innerHTML = trip.families.map(f => `<option value="${f.id}">${f.title} (Txns: ${f.headName})</option>`).join('');
+            famSelect.innerHTML = trip.families.map(f => `<option value="${esc(f.id)}">${esc(f.title)} (Txns: ${esc(f.headName)})</option>`).join('');
 
             const famWrap = document.getElementById('mem-family-select-wrap');
             const handlerWrap = document.getElementById('mem-tx-handler-wrap');
@@ -3684,6 +4486,7 @@
         }
 
         function saveMemberFromModal(event) {
+            if (!requireActiveTrip()) return;
             event.preventDefault();
             const trip = getActiveTrip();
             const editId = document.getElementById('mem-edit-id').value;
@@ -3694,6 +4497,9 @@
             const phone = document.getElementById('mem-phone').value.trim() || '—';
             const aadhaar = document.getElementById('mem-aadhaar').value.trim() || '—';
             let familyId = document.getElementById('mem-family-id').value;
+            const previousMember = editId ? trip.members.find(m => m.id === editId) : null;
+            if ((previousMember && !requireOpenFamilyAccount(trip, previousMember.familyId)) ||
+                (familyId && !requireOpenFamilyAccount(trip, familyId))) return;
 
             if (editId) {
                 const m = trip.members.find(item => item.id === editId);
@@ -3724,12 +4530,12 @@
                 }
                 showToast('Participant details updated!');
             } else {
-                const newMemId = 'm_' + Date.now();
+                const newMemId = genId('m');
                 if (trip.groupMode === 'individual') {
-                    familyId = 'fam_' + Date.now();
+                    familyId = genId('fam');
                     trip.families.push({ id: familyId, title: name, headName: name, phone });
                 } else if (!familyId && trip.families.length === 0) {
-                    familyId = 'fam_' + Date.now();
+                    familyId = genId('fam');
                     trip.families.push({ id: familyId, title: `${name} Family`, headName: name, phone });
                 } else if (isHandler) {
                     const fam = trip.families.find(f => f.id === familyId);
@@ -3752,9 +4558,11 @@
         }
 
         function deleteMember(memberId) {
+            if (!requireActiveTrip()) return;
             openConfirmModal('Remove Participant?', 'This person will be removed from this trip and equal splits will re-balance.', () => {
                 const trip = getActiveTrip();
                 const mem = trip.members.find(m => m.id === memberId);
+                if (mem && !requireOpenFamilyAccount(trip, mem.familyId)) return;
                 trip.members = trip.members.filter(m => m.id !== memberId);
                 if (trip.groupMode === 'individual' && mem) {
                     trip.families = trip.families.filter(f => f.id !== mem.familyId);
@@ -3782,6 +4590,10 @@
         function renderFamilyManagerModal() {
             const trip = getActiveTrip();
             const isIndiv = trip.groupMode === 'individual';
+            const readonly = isTripCompleted(trip);
+            document.getElementById('roster-money-manager-select').disabled = readonly;
+            document.getElementById('roster-mode-family').disabled = readonly;
+            document.getElementById('roster-mode-individual').disabled = readonly;
 
             document.getElementById('roster-mode-family').className = !isIndiv
                 ? 'py-2 px-2 rounded-lg bg-ios-blue text-white font-extrabold transition'
@@ -3791,13 +4603,13 @@
                 : 'py-2 px-2 rounded-lg text-ios-gray font-semibold transition';
 
             const mgrSelect = document.getElementById('roster-money-manager-select');
-            mgrSelect.innerHTML = trip.families.map(f => `<option value="${f.id}">${f.headName} (${f.title})</option>`).join('');
+            mgrSelect.innerHTML = trip.families.map(f => `<option value="${esc(f.id)}">${esc(f.headName)} (${esc(f.title)})</option>`).join('');
             mgrSelect.value = trip.moneyManagerFamilyId;
 
-            document.getElementById('roster-add-family-section').classList.toggle('hidden', isIndiv);
+            document.getElementById('roster-add-family-section').classList.toggle('hidden', isIndiv || readonly);
 
             const hasEmptyFamilies = trip.families.some(f => trip.members.filter(m => m.familyId === f.id).length === 0);
-            document.getElementById('btn-purge-empty-families').classList.toggle('hidden', !hasEmptyFamilies);
+            document.getElementById('btn-purge-empty-families').classList.toggle('hidden', !hasEmptyFamilies || readonly);
 
             const listEl = document.getElementById('roster-families-list');
             listEl.innerHTML = trip.families.map(f => {
@@ -3808,34 +4620,33 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div>
                                 <div class="font-extrabold text-sm flex items-center gap-2 flex-wrap">
-                                    <span>${f.title} (${fMembers.length} members)</span>
-                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">💳 Txns Managed by: ${f.headName}</span>
+                                    <span>${esc(f.title)} (${fMembers.length} members)</span>
+                                    ${f.accountClosed ? '<span class="text-ios-green text-[10px] font-extrabold">✅ Settled</span>' : ''}
+                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">💳 Txns Managed by: ${esc(f.headName)}</span>
                                     ${isMgr ? '<span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold">👑 Trip Money Manager</span>' : ''}
                                 </div>
-                                ${f.phone && f.phone !== '—' ? `<div class="text-[11px] text-ios-gray mt-0.5">📞 ${f.phone}</div>` : ''}
+                                ${f.phone && f.phone !== '—' ? `<div class="text-[11px] text-ios-gray mt-0.5">📞 ${esc(f.phone)}</div>` : ''}
                             </div>
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                ${!isIndiv ? `
-                                    <button type="button" onclick="openMemberEditModal(null, '${f.id}')" class="px-2.5 py-1 rounded-lg bg-ios-blue/15 text-ios-blue text-xs font-bold hover:bg-ios-blue/25">+ Member</button>
-                                    <button type="button" onclick="populateFamilyEditForm('${f.id}')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 text-xs font-bold hover:bg-zinc-200">✏️ Edit Family</button>
+                                ${!isIndiv && !readonly && !f.accountClosed ? `
+                                    <button type="button" onclick="openMemberEditModal(null, ${safeJsArg(f.id)})" class="px-2.5 py-1 rounded-lg bg-ios-blue/15 text-ios-blue text-xs font-bold hover:bg-ios-blue/25">+ Member</button>
+                                    <button type="button" onclick="populateFamilyEditForm(${safeJsArg(f.id)})" class="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 text-xs font-bold hover:bg-zinc-200">✏️ Edit Family</button>
                                 ` : ''}
-                                <button type="button" onclick="deleteFamilyUnit('${f.id}')" class="px-2.5 py-1 rounded-lg bg-ios-red/15 text-ios-red text-xs font-bold hover:bg-ios-red hover:text-white transition">🗑️ Delete</button>
+                                ${!readonly && !f.accountClosed ? `<button type="button" onclick="deleteFamilyUnit(${safeJsArg(f.id)})" class="px-2.5 py-1 rounded-lg bg-ios-red/15 text-ios-red text-xs font-bold hover:bg-ios-red hover:text-white transition">🗑️ Delete</button>` : ''}
                             </div>
                         </div>
                         <div class="flex flex-wrap gap-1.5">
                             ${fMembers.length === 0 ? `
-                                <span class="text-xs text-ios-red font-semibold">0 members in this family — <button onclick="deleteFamilyUnit('${f.id}')" class="underline font-bold">Remove Empty Family Now</button></span>
+                                <span class="text-xs text-ios-gray font-semibold">0 members in this family ${readonly || f.accountClosed ? '' : `— <button onclick="deleteFamilyUnit(${safeJsArg(f.id)})" class="underline font-bold">Remove Empty Family Now</button>`}</span>
                             ` : fMembers.map(m => {
                                 const isFamHandler = f.headName.toLowerCase() === m.name.toLowerCase();
                                 return `
                                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl ${isFamHandler && !isIndiv ? 'bg-ios-blue/10 border-ios-blue/30' : 'bg-white dark:bg-zinc-900 border-ios-border dark:border-ios-darkBorder'} border text-xs">
-                                    <button type="button" onclick="openMemberEditModal('${m.id}')" class="font-semibold hover:text-ios-blue">
-                                        ${m.name} (${m.age})${isFamHandler && !isIndiv ? ' 💳' : ''}
-                                    </button>
-                                    ${!isFamHandler && !isIndiv ? `
-                                        <button type="button" onclick="setFamilyTransactionHandler('${f.id}', '${m.id}')" title="Make ${m.name} the Transaction Handler for ${f.title}" class="text-[10px] text-ios-gray hover:text-ios-blue font-bold px-1">Make Handler</button>
+                                    ${readonly || f.accountClosed ? `<span class="font-semibold">${esc(m.name)} (${esc(m.age)})${isFamHandler && !isIndiv ? ' 💳' : ''}</span>` : `<button type="button" onclick="openMemberEditModal(${safeJsArg(m.id)})" class="font-semibold hover:text-ios-blue">${esc(m.name)} (${esc(m.age)})${isFamHandler && !isIndiv ? ' 💳' : ''}</button>`}
+                                    ${!isFamHandler && !isIndiv && !readonly && !f.accountClosed ? `
+                                        <button type="button" onclick="setFamilyTransactionHandler(${safeJsArg(f.id)}, ${safeJsArg(m.id)})" title="Make ${esc(m.name)} the Transaction Handler for ${esc(f.title)}" class="text-[10px] text-ios-gray hover:text-ios-blue font-bold px-1">Make Handler</button>
                                     ` : ''}
-                                    <button type="button" onclick="deleteMember('${m.id}')" class="text-ios-red font-bold hover:scale-110">×</button>
+                                    ${readonly || f.accountClosed ? '' : `<button type="button" onclick="deleteMember(${safeJsArg(m.id)})" class="text-ios-red font-bold hover:scale-110">×</button>`}
                                 </div>
                                 `;
                             }).join('')}
@@ -3846,7 +4657,9 @@
         }
 
         function setFamilyTransactionHandler(famId, memberId) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (!requireOpenFamilyAccount(trip, famId)) return;
             const fam = trip.families.find(f => f.id === famId);
             const mem = trip.members.find(m => m.id === memberId);
             if (!fam || !mem) return;
@@ -3859,9 +4672,10 @@
         }
 
         function populateFamilyEditForm(famId) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
             const fam = trip.families.find(f => f.id === famId);
-            if (!fam) return;
+            if (!fam || !requireOpenFamilyAccount(trip, famId)) return;
             document.getElementById('edit-family-id-input').value = fam.id;
             document.getElementById('new-family-title').value = fam.title;
             document.getElementById('new-family-head').value = fam.headName;
@@ -3871,12 +4685,14 @@
         }
 
         function saveFamilyUnitFromRoster(event) {
+            if (!requireActiveTrip()) return;
             event.preventDefault();
             const trip = getActiveTrip();
             const editId = document.getElementById('edit-family-id-input').value;
             const title = document.getElementById('new-family-title').value.trim();
             const headName = document.getElementById('new-family-head').value.trim();
             const phone = document.getElementById('new-family-phone').value.trim() || '—';
+            if (editId && !requireOpenFamilyAccount(trip, editId)) return;
 
             if (editId) {
                 const fam = trip.families.find(f => f.id === editId);
@@ -3887,10 +4703,10 @@
                 }
                 showToast('Family details updated!');
             } else {
-                const newFamId = 'fam_' + Date.now();
+                const newFamId = genId('fam');
                 trip.families.push({ id: newFamId, title, headName, phone });
                 trip.members.push({
-                    id: 'm_' + Date.now(),
+                    id: genId('m'),
                     familyId: newFamId,
                     name: headName,
                     age: 28,
@@ -3916,7 +4732,9 @@
         }
 
         function deleteFamilyUnit(famId) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (!requireOpenFamilyAccount(trip, famId)) return;
             if (trip.families.length <= 1) {
                 showToast('Trip must have at least 1 active family/paying unit.', 'error');
                 return;
@@ -3938,7 +4756,11 @@
         }
 
         function purgeZeroMemberFamilies() {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (trip.families.some(f => f.accountClosed)) {
+                showToast('Reopen settled accounts before restructuring the trip roster.', 'error'); return;
+            }
             const keptFamilies = trip.families.filter(f => trip.members.some(m => m.familyId === f.id));
             if (keptFamilies.length === 0) {
                 showToast('Cannot delete all families when no members exist.', 'error');
@@ -3956,7 +4778,9 @@
         }
 
         function changeMoneyManager(newFamId) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (!requireOpenFamilyAccount(trip, newFamId)) return;
             trip.moneyManagerFamilyId = newFamId;
             saveState();
             renderFamilyManagerModal();
@@ -3965,7 +4789,11 @@
         }
 
         function regroupMembersIntoFamilies() {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (trip.families.some(f => f.accountClosed)) {
+                showToast('Reopen settled accounts before restructuring the trip roster.', 'error'); return;
+            }
             if (!trip.members || trip.members.length === 0) return;
 
             // 1. If a snapshot of original multi-family structure exists and matches current members, restore it
@@ -3989,7 +4817,7 @@
                             m.familyId = matchedFam.id;
                             oldUnitToRestoredFam[prevUnitId] = matchedFam.id;
                         } else {
-                            const newFamId = 'fam_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+                            const newFamId = genId('fam') + '_' + Math.random().toString(36).slice(2, 6);
                             backupFams.push({ id: newFamId, title: `${surname} Family`, headName: m.name, phone: m.phone || '—' });
                             m.familyId = newFamId;
                             oldUnitToRestoredFam[prevUnitId] = newFamId;
@@ -4027,7 +4855,7 @@
                     const famTitle = `${surname} Family`;
 
                     if (!famMapByKey[groupKey]) {
-                        const newFamId = 'fam_regroup_' + idx + '_' + Date.now();
+                        const newFamId = genId('fam_regroup');
                         const newFamObj = {
                             id: newFamId,
                             title: famTitle,
@@ -4072,7 +4900,11 @@
         }
 
         function changeActiveTripGroupMode(newMode) {
+            if (!requireActiveTrip()) return;
             const trip = getActiveTrip();
+            if (trip.families.some(f => f.accountClosed)) {
+                showToast('Reopen settled accounts before restructuring the trip roster.', 'error'); return;
+            }
             if (trip.groupMode === newMode) return;
 
             if (newMode === 'individual') {
@@ -4151,17 +4983,22 @@
                                 <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${t.groupMode === 'individual' ? 'bg-purple-500/15 text-purple-600' : 'bg-ios-blue/15 text-ios-blue'}">
                                     ${t.groupMode === 'individual' ? '🧑‍🤝‍🧑 Individual' : '👨‍👩‍👧‍👦 Multi-Family'}
                                 </span>
-                                ${isAct ? '<span class="text-[10px] font-extrabold text-ios-green">● ACTIVE</span>' : ''}
+                                ${isAct ? '<span class="text-[10px] font-extrabold text-ios-green">● SELECTED</span>' : ''}
                             </div>
-                            <h4 class="font-extrabold text-sm mt-1.5">${t.name}</h4>
-                            <p class="text-xs text-ios-gray">${t.destination} • ${t.members.length} Pax • Spent ${formatINR(totalExp)}</p>
+                            ${isTripCompleted(t) ? '<span class="text-[10px] font-extrabold text-ios-green">🏁 Completed</span>' : ''}
+                            <h4 class="font-extrabold text-sm mt-1.5">${esc(t.name)}</h4>
+                            <p class="text-xs text-ios-gray">${esc(t.destination)} • ${t.members.length} Pax • Spent ${formatINR(totalExp)}</p>
                         </div>
                         <div class="flex items-center justify-between pt-2 border-t border-ios-border dark:border-ios-darkBorder">
-                            <button type="button" onclick="switchActiveTrip('${t.id}')" class="px-3 py-1.5 rounded-xl ${isAct ? 'bg-zinc-200 dark:bg-zinc-700 text-xs font-bold' : 'bg-ios-blue text-white text-xs font-bold'}">
+                            <button type="button" onclick="switchActiveTrip(${safeJsArg(t.id)})" class="px-3 py-1.5 rounded-xl ${isAct ? 'bg-zinc-200 dark:bg-zinc-700 text-xs font-bold' : 'bg-ios-blue text-white text-xs font-bold'}">
                                 ${isAct ? 'Selected' : 'Open Trip'}
                             </button>
-                            ${appState.trips.length > 1 ? `
-                                <button type="button" onclick="deleteTrip('${t.id}')" class="text-xs font-bold text-ios-red hover:underline">Delete</button>
+                            ${isAct ? (isTripCompleted(t)
+                                ? `<button type="button" onclick="reopenTrip(${safeJsArg(t.id)})" class="text-xs font-bold text-ios-blue hover:underline">Reopen Trip</button>`
+                                : `<button type="button" onclick="completeTrip(${safeJsArg(t.id)})" class="text-xs font-bold text-emerald-600 hover:underline">Close Trip</button>`)
+                                : ''}
+                            ${appState.trips.length > 1 && !isTripCompleted(t) ? `
+                                <button type="button" onclick="deleteTrip(${safeJsArg(t.id)})" class="text-xs font-bold text-ios-red hover:underline">Delete</button>
                             ` : ''}
                         </div>
                     </div>
@@ -4189,9 +5026,9 @@
                     return `
                         <div class="inline-flex items-center rounded-full border transition ${alreadyIn ? 'bg-ios-blue text-white border-ios-blue' : 'bg-ios-bg dark:bg-zinc-800 border-ios-border dark:border-ios-darkBorder hover:border-ios-blue'}">
                             <button type="button" onclick="toggleMasterContactInDraft(${idx})" class="text-[11px] font-semibold pl-2.5 pr-1.5 py-1">
-                                ${alreadyIn ? '✓ ' : '+ '}${c.name}
+                                ${alreadyIn ? '✓ ' : '+ '}${esc(c.name)}
                             </button>
-                            <button type="button" onclick="deleteContactFromMasterBank(${idx})" title="Remove ${c.name} from Saved Contacts" class="pr-2 pl-1 py-1 text-[11px] font-extrabold ${alreadyIn ? 'text-white/80 hover:text-white' : 'text-ios-gray hover:text-ios-red'}">×</button>
+                            <button type="button" onclick="deleteContactFromMasterBank(${idx})" title="Remove ${esc(c.name)} from Saved Contacts" class="pr-2 pl-1 py-1 text-[11px] font-extrabold ${alreadyIn ? 'text-white/80 hover:text-white' : 'text-ios-gray hover:text-ios-red'}">×</button>
                         </div>
                     `;
                 }).join('');
@@ -4204,7 +5041,7 @@
             } else {
                 pillsEl.innerHTML = newTripDraftParticipants.map((p, i) => `
                     <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-ios-blue/10 text-ios-blue text-xs font-bold">
-                        <span>${p.name} ${mode === 'family' ? `(${p.familyTitle})` : ''}</span>
+                        <span>${esc(p.name)} ${mode === 'family' ? `(${esc(p.familyTitle)})` : ''}</span>
                         <button type="button" onclick="removeDraftParticipant(${i})" class="text-ios-red font-extrabold">×</button>
                     </span>
                 `).join('');
@@ -4237,7 +5074,7 @@
             appState.masterContacts.splice(contactIdx, 1);
             // Also remove from any other demo trip if present so they don't get re-synced
             (appState.trips || []).forEach(t => {
-                if (t.id !== appState.activeTripId) {
+                if (t.id !== appState.activeTripId && !isTripCompleted(t)) {
                     t.members = (t.members || []).filter(m => m.name.toLowerCase() !== targetName);
                     t.families = (t.families || []).filter(f => (t.members || []).some(m => m.familyId === f.id));
                 }
@@ -4250,10 +5087,13 @@
 
         function syncMasterContactsOnlyActive() {
             const activeTrip = getActiveTrip();
+            if (isTripCompleted(activeTrip)) {
+                showToast('Completed trips are archived. Reopen before cleaning trip contacts.', 'error'); return;
+            }
             // Keep only contacts from the currently active trip
             const activeNames = new Set((activeTrip.members || []).map(m => m.name.toLowerCase()));
             // Remove other demo trips if they hold deleted demo people
-            appState.trips = appState.trips.filter(t => t.id === activeTrip.id);
+            appState.trips = appState.trips.filter(t => t.id === activeTrip.id || isTripCompleted(t));
             syncCurrentMembersToMasterContacts();
             newTripDraftParticipants = newTripDraftParticipants.filter(p => activeNames.has(p.name.toLowerCase()));
             saveState();
@@ -4332,15 +5172,15 @@
             const famByTitle = {};
 
             newTripDraftParticipants.forEach((p, idx) => {
-                const memId = `m_${Date.now()}_${idx}`;
+                const memId = genId('m');
                 if (groupMode === 'individual') {
-                    const famId = `fam_${Date.now()}_${idx}`;
+                    const famId = genId('fam');
                     families.push({ id: famId, title: p.name, headName: p.name, phone: p.phone });
                     members.push({ id: memId, familyId: famId, name: p.name, age: p.age, gender: p.gender, role: 'Head', phone: p.phone, aadhaar: p.aadhaar });
                 } else {
                     const fTitle = p.familyTitle || `${p.name} Family`;
                     if (!famByTitle[fTitle]) {
-                        const famId = `fam_${Date.now()}_${idx}`;
+                        const famId = genId('fam');
                         famByTitle[fTitle] = famId;
                         families.push({ id: famId, title: fTitle, headName: p.name, phone: p.phone });
                     }
@@ -4351,13 +5191,15 @@
             });
 
             const newTrip = {
-                id: 'trip_' + Date.now(),
+                id: genId('trip'),
                 name,
                 destination,
                 startDate,
                 endDate,
                 budget,
                 groupMode,
+                status: 'active',
+                completedAt: null,
                 moneyManagerFamilyId: families[0].id,
                 families,
                 members,
@@ -4387,6 +5229,7 @@
         function deleteTrip(tripId) {
             if (appState.trips.length <= 1) return;
             const t = appState.trips.find(item => item.id === tripId);
+            if (isTripCompleted(t)) { showToast('Reopen this completed trip before deleting it.', 'error'); return; }
             openConfirmModal(`Delete "${t ? t.name : 'Trip'}"?`, 'All expenses and pool records for this trip will be permanently removed.', () => {
                 appState.trips = appState.trips.filter(item => item.id !== tripId);
                 if (appState.activeTripId === tripId) {
@@ -4426,7 +5269,7 @@
                 const b64 = raw.replace('TRIPOS_SYNC_', '');
                 const parsed = JSON.parse(base64ToUtf8(b64));
                 if (!parsed || !Array.isArray(parsed.trips)) throw new Error('Invalid structure');
-                appState = parsed;
+                appState = migrateTripState(parsed);
                 saveState();
                 applyTheme();
                 closeSyncModal();
@@ -4458,7 +5301,7 @@
                 try {
                     const parsed = JSON.parse(e.target.result);
                     if (!parsed || !Array.isArray(parsed.trips)) throw new Error('Invalid backup');
-                    appState = parsed;
+                    appState = migrateTripState(parsed);
                     saveState();
                     applyTheme();
                     closeSyncModal();
@@ -4473,7 +5316,7 @@
 
         function confirmResetDemoData() {
             openConfirmModal('Reset to Default Demo Data?', 'This will restore the default 19-member Goa Family Trip and 4-member Gokarna Friends Trip.', () => {
-                appState = getDefaultState();
+                appState = migrateTripState(getDefaultState());
                 saveState();
                 applyTheme();
                 renderApp();
